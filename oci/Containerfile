@@ -1,0 +1,32 @@
+ARG DEBIAN_OCI_TAG
+
+# https://hub.docker.com/_/debian/tags
+FROM debian:${DEBIAN_OCI_TAG}
+ARG SNAPSHOT_TIMESTAMP
+
+USER root
+
+# '--no-install-recommends' flag *is* present, multiline formatting issue
+# hadolint global ignore=DL3008
+#trivy:ignore:AVD-DS-0029
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get install --yes \
+                    --update \
+                    # Targets 'snapshot.debian.org' APT repository
+                    --snapshot ${SNAPSHOT_TIMESTAMP} \
+                    --no-install-recommends \
+                    # 'ca-certificates' not installed by default, ignore invalid cert
+                    --option 'Acquire::https::snapshot.debian.org::Verify-Peer=false' \
+                    --option 'Acquire::Check-Valid-Until=false' \
+                    live-build=1:20250505 \
+                    ca-certificates=20250419 \
+    && rm --recursive \
+       --force \
+       /var/lib/apt/lists/*
+
+# Requires explicit override during ISO creation
+# Configured as an unprivileged user 'nobody', group 'nobody'
+USER 65534:65534
+
+# Operates as an ad-hoc, short-lived build container; no service(s) hosted
+HEALTHCHECK NONE
