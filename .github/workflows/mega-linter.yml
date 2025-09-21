@@ -15,7 +15,7 @@ on: # yamllint disable-line rule:truthy - false positive
       - main
 
 # Comment env block if you do not want to apply fixes
-env:
+# env:
   # Apply linter fixes configuration
   #
   # When active, APPLY_FIXES must also be defined as environment variable
@@ -64,7 +64,7 @@ jobs:
 
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.io/latest/flavors/
-        uses: oxsecurity/megalinter@v8
+        uses: oxsecurity/megalinter@e08c2b05e3dbc40af4c23f41172ef1e068a7d651 # v8.8.0
 
         id: ml
 
@@ -81,12 +81,12 @@ jobs:
           # VALIDATE_ALL_CODEBASE: >-
           #   ${{
           #     github.event_name == 'push' &&
-          #     contains(fromJSON('["refs/heads/main"'), github.ref)
+          #     contains(fromJSON('"refs/heads/main"'), github.ref)
           #   }}
           VALIDATE_ALL_CODEBASE: >-
             ${{
               github.event_name == 'push' &&
-              contains(fromJSON('["refs/heads/main"'), github.ref)
+              contains(fromJSON('"refs/heads/main"'), github.ref)
             }}
 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -96,6 +96,7 @@ jobs:
 
           # Uncomment to disable copy-paste and spell checks
           # DISABLE: COPYPASTE,SPELL
+          SPELL_FILTER_REGEX_EXCLUDE: (.github/workflows/)
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
@@ -139,7 +140,7 @@ jobs:
       # Create pull request if applicable
       # (for now works only on PR from same repository, not from forks)
       - name: Create Pull Request with applied fixes
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         id: cpr
         if: env.APPLY_FIXES_IF_PR == 'true'
         with:
@@ -161,7 +162,7 @@ jobs:
         run: sudo chown -Rc $UID .git/
 
       - name: Commit and push applied linter fixes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@778341af668090896ca464160c2def5d1d1a3eb0 # v6.0.1
         if: env.APPLY_FIXES_IF_COMMIT == 'true'
         with:
           branch: >-
