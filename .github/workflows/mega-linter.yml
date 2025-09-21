@@ -81,12 +81,12 @@ jobs:
           # VALIDATE_ALL_CODEBASE: >-
           #   ${{
           #     github.event_name == 'push' &&
-          #     contains(fromJSON('["refs/heads/main"'), github.ref)
+          #     contains(fromJSON('"refs/heads/main"'), github.ref)
           #   }}
           VALIDATE_ALL_CODEBASE: >-
             ${{
               github.event_name == 'push' &&
-              contains(fromJSON('["refs/heads/main"'), github.ref)
+              contains(fromJSON('"refs/heads/main"'), github.ref)
             }}
 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
