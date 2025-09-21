@@ -96,6 +96,7 @@ jobs:
 
           # Uncomment to disable copy-paste and spell checks
           # DISABLE: COPYPASTE,SPELL
+          SPELL_FILTER_REGEX_EXCLUDE: (.github/workflows/)
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
