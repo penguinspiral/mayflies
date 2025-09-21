@@ -91,6 +91,9 @@ jobs:
 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+          LINTER_RULES_PATH: '.linters/'
+          SPELL_CSPELL_CONFIG_FILE: 'spell/cspell/cspell.yaml'
+
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE
           # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
 
