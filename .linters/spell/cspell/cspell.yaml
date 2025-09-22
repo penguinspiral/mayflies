@@ -1,9 +1,13 @@
 ---
 $schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
 version: '0.2'
+language: en-GB
 dictionaryDefinitions:
   - name: cspell-dictionary
     path: './cspell-dictionary.txt'
     addWords: true
 dictionaries:
+  - companies
   - cspell-dictionary
+  - misc
+  - softwareTerms
