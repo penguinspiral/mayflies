@@ -1,2 +1,9 @@
+buildah
 Containerfile
+linters
 noninteractive
+penguinspiral
+skopeo
+trixie
+Thhmmss
+vars
