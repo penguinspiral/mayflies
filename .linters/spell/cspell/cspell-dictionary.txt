@@ -1,5 +1,6 @@
 buildah
 Containerfile
+Forky
 linters
 noninteractive
 penguinspiral
