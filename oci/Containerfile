@@ -18,8 +18,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
                     # 'ca-certificates' not installed by default, ignore invalid cert
                     --option 'Acquire::https::snapshot.debian.org::Verify-Peer=false' \
                     --option 'Acquire::Check-Valid-Until=false' \
-                    live-build=1:20250505 \
-                    ca-certificates=20250419 \
+                    live-build \
+                    ca-certificates \
     && rm --recursive \
        --force \
        /var/lib/apt/lists/*
