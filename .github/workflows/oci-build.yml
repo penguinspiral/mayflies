@@ -1,0 +1,29 @@
+name: OCI build
+
+on:
+  push:
+    paths:
+      - oci/Containerfile
+      - oci/Makefile
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - oci/Containerfile
+      - oci/Makefile
+
+permissions: {}
+
+jobs:
+  oci-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - working-directory: oci
+        run: make build
