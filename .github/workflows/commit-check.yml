@@ -12,6 +12,7 @@ permissions: {}
 jobs:
   commit-check:
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     permissions:  # use permissions because use of pr-comments
       contents: read
       pull-requests: write
