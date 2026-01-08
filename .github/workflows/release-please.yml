@@ -1,3 +1,6 @@
+# Release Please GitHub Action configuration file
+# More info at https://github.com/googleapis/release-please-action
+---
 on:
   push:
     branches:

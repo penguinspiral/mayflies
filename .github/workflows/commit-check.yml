@@ -1,3 +1,6 @@
+# Commit Check GitHub Action configuration file
+# More info at https://commit-check.github.io/
+---
 name: Commit Check
 
 on:
