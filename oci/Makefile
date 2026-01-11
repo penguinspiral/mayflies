@@ -34,7 +34,7 @@ OCI_BUILD_CMD  := build
 OCI_BUILD_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
                   --build-arg SNAPSHOT_TIMESTAMP=$(SNAPSHOT_TIMESTAMP) \
                   --tag "$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)" \
-                  Containerfile
+                  --file Containerfile
 
 .PHONY: build-deps publish-deps build publish help
 
