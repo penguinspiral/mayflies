@@ -1,6 +1,8 @@
 # Release Please GitHub Action configuration file
 # More info at https://github.com/googleapis/release-please-action
 ---
+name: release-please
+
 on:
   push:
     branches:
@@ -10,7 +12,6 @@ permissions:
   contents: write
   pull-requests: write
 
-name: release-please
 
 jobs:
   release-please:
