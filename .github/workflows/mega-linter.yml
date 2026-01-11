@@ -94,6 +94,7 @@ jobs:
 
           LINTER_RULES_PATH: ".linters/"
           SPELL_CSPELL_CONFIG_FILE: "spell/cspell/cspell.yaml"
+          YAML_PRETTIER_DISABLE_ERRORS: false
 
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE
           # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
