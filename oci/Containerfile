@@ -1,6 +1,7 @@
 ARG DEBIAN_OCI_TAG
 
 # https://hub.docker.com/_/debian/tags
+# Ignore 'InvalidDefaultArgInFrom' warning, Makefile is the build interface
 FROM debian:${DEBIAN_OCI_TAG}
 ARG SNAPSHOT_TIMESTAMP
 
