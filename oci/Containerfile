@@ -1,7 +1,8 @@
 ARG DEBIAN_OCI_TAG
 
-# https://hub.docker.com/_/debian/tags
-FROM debian:${DEBIAN_OCI_TAG}
+# https://gallery.ecr.aws/docker/library/debian (mirrors DockerHub)
+# Ignore 'InvalidDefaultArgInFrom' warning, Makefile is the build interface
+FROM public.ecr.aws/docker/library/debian:${DEBIAN_OCI_TAG}
 ARG SNAPSHOT_TIMESTAMP
 
 USER root
