@@ -33,6 +33,7 @@ endif
 ifeq ($(OCI_PUBLISH_BINARY),docker)
     OCI_PUBLISH_CMD    ?= push
     OCI_PUBLISH_OPTS   ?= docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
+    SUDO_OPTS          ?= --preserve-env=DOCKER_CONFIG
 endif
 
 OCI_BUILD_CMD  := build
