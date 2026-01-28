@@ -23,7 +23,7 @@ ifneq (,$(shell command -v skopeo 2>/dev/null))
 endif
 ifeq ($(OCI_PUBLISH_BINARY),skopeo)
     OCI_PUBLISH_CMD    ?= copy
-    OCI_PUBLISH_OPTS   ?= containers-storage:localhost/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG) \
+    OCI_PUBLISH_OPTS   ?= containers-storage:localhost/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG) \
                           docker://docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
 endif
 
@@ -38,7 +38,7 @@ endif
 OCI_BUILD_CMD  := build
 OCI_BUILD_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
                   --build-arg SNAPSHOT_TIMESTAMP=$(SNAPSHOT_TIMESTAMP) \
-                  --tag "$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)" \
+                  --tag penguinspiral/"$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)" \
                   --file Containerfile \
                   .
 
