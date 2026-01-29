@@ -50,11 +50,11 @@ jobs:
                        docker.io
 
       - name: Publish Containerfile (skopeo)
-        if: github.event.pull_request.merged == 'true'
+        if: github.event.pull_request.merged == true
         run: make publish OCI_PUBLISH_BINARY=skopeo
 
       - name: Publish Containerfile (docker)
-        if: github.event.pull_request.merged == 'true'
+        if: github.event.pull_request.merged == true
         env:
           # docker/login-action stores credentials as unprivileged user: 'runner'
           DOCKER_CONFIG: "/home/runner/.docker"
