@@ -7,6 +7,12 @@ on:
     paths:
       - oci/Containerfile
       - oci/Makefile
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+      - closed
 
 permissions: {}
 
