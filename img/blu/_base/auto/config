@@ -3,3 +3,4 @@ set -u
 
 lb config noauto \
 	  --apt-options '--yes --option Acquire::Retries=5 --option Acquire::Check-Valid-Until=false' \
+	  --apt-source-archives false \
