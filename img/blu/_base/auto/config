@@ -6,3 +6,4 @@ lb config noauto \
 	  --apt-source-archives false \
 	  --bootappend-live 'boot=live live-config.components ip=frommedia' \
 	  --clean \
+	  --debian-installer none \
