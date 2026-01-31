@@ -7,3 +7,4 @@ lb config noauto \
 	  --bootappend-live 'boot=live live-config.components ip=frommedia' \
 	  --clean \
 	  --debian-installer none \
+	  --debootstrap-options='--include=ca-certificates' \
