@@ -8,3 +8,4 @@ lb config noauto \
 	  --clean \
 	  --debian-installer none \
 	  --debootstrap-options='--include=ca-certificates' \
+	  --distribution ${LB_DEBIAN_RELEASE} \
