@@ -11,4 +11,6 @@ lb config noauto \
 	  --distribution ${LB_DEBIAN_RELEASE} \
 	  --ignore-system-defaults \
 	  --mirror-binary ${LB_MIRROR} \
+	  --mirror-bootstrap ${LB_MIRROR} \
 	  --parent-mirror-binary ${LB_MIRROR} \
+	  --parent-mirror-bootstrap ${LB_MIRROR} \
