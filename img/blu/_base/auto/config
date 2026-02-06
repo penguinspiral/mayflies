@@ -13,6 +13,8 @@ lb config noauto \
 	  --mirror-binary ${LB_MIRROR} \
 	  --mirror-bootstrap ${LB_MIRROR} \
 	  --mirror-chroot ${LB_MIRROR} \
+	  --mirror-debian-installer ${LB_MIRROR} \
 	  --parent-mirror-binary ${LB_MIRROR} \
 	  --parent-mirror-bootstrap ${LB_MIRROR} \
 	  --parent-mirror-chroot ${LB_MIRROR} \
+	  --parent-mirror-debian-installer ${LB_MIRROR} \
