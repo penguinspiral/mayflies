@@ -18,3 +18,4 @@ lb config noauto \
 	  --parent-mirror-bootstrap ${LB_MIRROR} \
 	  --parent-mirror-chroot ${LB_MIRROR} \
 	  --parent-mirror-debian-installer ${LB_MIRROR} \
+	  --memtest 'memtest86+' \
