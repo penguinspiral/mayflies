@@ -12,5 +12,7 @@ lb config noauto \
 	  --ignore-system-defaults \
 	  --mirror-binary ${LB_MIRROR} \
 	  --mirror-bootstrap ${LB_MIRROR} \
+	  --mirror-chroot ${LB_MIRROR} \
 	  --parent-mirror-binary ${LB_MIRROR} \
 	  --parent-mirror-bootstrap ${LB_MIRROR} \
+	  --parent-mirror-chroot ${LB_MIRROR} \
