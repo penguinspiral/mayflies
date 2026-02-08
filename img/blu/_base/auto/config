@@ -21,3 +21,4 @@ lb config noauto \
 	  --memtest 'memtest86+' \
 	  --mode debian \
 	  --net-tarball false \
+	  --updates false \
