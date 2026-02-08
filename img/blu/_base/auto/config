@@ -20,3 +20,4 @@ lb config noauto \
 	  --parent-mirror-debian-installer ${LB_MIRROR} \
 	  --memtest 'memtest86+' \
 	  --mode debian \
+	  --net-tarball false \
