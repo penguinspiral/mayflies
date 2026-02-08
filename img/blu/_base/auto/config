@@ -22,3 +22,4 @@ lb config noauto \
 	  --mode debian \
 	  --net-tarball false \
 	  --updates false \
+	  --security false \
