@@ -23,3 +23,4 @@ lb config noauto \
 	  --net-tarball false \
 	  --updates false \
 	  --security false \
+	  --image-name "blu-$(basename "${PWD}")-$(date +"%Y:%m:%d-%H:%M:%S")" \
