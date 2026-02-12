@@ -1,0 +1,39 @@
+name: Renovate
+
+on:
+  workflow_dispatch: # Ad-hoc run
+  schedule:
+    - cron: "0 */6 * * *" # Run every 6 hours
+
+concurrency:
+  group: renovate
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  renovate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Get App token (penguinspiral-app-renovate-bot)
+        id: get_token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        with:
+          app-id: ${{ secrets.RENOVATE_APP_ID }}
+          private-key: ${{ secrets.RENOVATE_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@e23f4d9675532445118c886434f5a34292b630b4 # v46.0.2
+        with:
+          configurationFile: .github/renovate.json
+          token: ${{ steps.get_token.outputs.token }}
