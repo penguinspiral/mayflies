@@ -1,7 +1,19 @@
 name: Renovate
 
 on:
-  workflow_dispatch: # Ad-hoc run
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: false
+        default: "info"
+        type: choice
+        options:
+          - debug
+          - info
+          - warn
+          - error
+          - fatal
   schedule:
     - cron: "0 */6 * * *" # Run every 6 hours
 
@@ -37,3 +49,5 @@ jobs:
         with:
           configurationFile: .github/renovate.json
           token: ${{ steps.get_token.outputs.token }}
+        env:
+          LOG_LEVEL: ${{ github.event.inputs.logLevel || 'info' }}
