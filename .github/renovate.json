@@ -12,6 +12,7 @@
     "penguinspiral/mayflies"
   ],
   "dependencyDashboard": true,
+  "branchPrefix": "chore/",
   "prConcurrentLimit": 5,
   "rebaseWhen": "conflicted",
   "semanticCommits": "enabled",
