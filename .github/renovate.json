@@ -1,16 +1,9 @@
 {
   "description": "Renovate configuration for GitHub Actions updates",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices"
-  ],
-  "labels": [
-    "dependencies",
-    "renovate"
-  ],
-  "repositories": [
-    "penguinspiral/mayflies"
-  ],
+  "extends": ["config:best-practices"],
+  "labels": ["dependencies", "renovate"],
+  "repositories": ["penguinspiral/mayflies"],
   "dependencyDashboard": true,
   "branchPrefix": "chore/",
   "prConcurrentLimit": 5,
