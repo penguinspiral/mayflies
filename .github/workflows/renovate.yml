@@ -1,5 +1,6 @@
 name: Renovate
 
+# checkov:skip=CKV_GHA_7:Manual input restricted to options list
 on:
   workflow_dispatch:
     inputs:
