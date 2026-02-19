@@ -1,7 +1,10 @@
 buildah
 Containerfile
+defenses
+favor
 Forky
 linters
+noncommercially
 noninteractive
 penguinspiral
 skopeo
