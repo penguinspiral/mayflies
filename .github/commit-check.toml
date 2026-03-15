@@ -1,0 +1,6 @@
+[commit]
+subject_imperative = true
+require_signed_off_by = false
+
+[branch]
+# require_rebase_target not set (equivalent to merge-base: false)
