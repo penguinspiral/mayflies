@@ -7,9 +7,6 @@ on:
   pull_request:
     branches:
       - main
-      # Ref: https://github.com/googleapis/release-please-action/issues/1167
-      # release-please workflow limited to 'origin/main' per 'on.push' config
-      - "!release-please--branches--main"
 
 permissions: {}
 
@@ -20,6 +17,9 @@ jobs:
     permissions: # use permissions because use of pr-comments
       contents: read
       pull-requests: write
+    # release-please generates an invalid branch: 'release-please--branches--main'
+    # release-please generates an invalid (non-imperative) commit: 'chore(main): release 1.0.0'
+    if: "!startsWith(github.head_ref, 'release-please--branches--main')"
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
