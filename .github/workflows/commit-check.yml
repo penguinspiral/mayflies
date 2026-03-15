@@ -9,6 +9,9 @@ on:
   pull_request:
     branches:
       - main
+      # Ref: https://github.com/googleapis/release-please-action/issues/1167
+      # release-please workflow limited to 'origin/main' per 'on.push' config
+      - "!release-please--branches--main"
 
 permissions: {}
 
