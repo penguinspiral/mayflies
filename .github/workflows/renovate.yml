@@ -16,7 +16,7 @@ on:
           - error
           - fatal
   schedule:
-    - cron: "0 */6 * * *" # Run every 6 hours
+    - cron: "37 2 * * *" # Run daily
 
 concurrency:
   group: renovate
