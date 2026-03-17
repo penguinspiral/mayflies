@@ -25,3 +25,4 @@ lb config noauto \
 	  --security false \
 	  --image-name "blu-$(basename "${PWD}")-$(date +"%Y:%m:%d-%H:%M:%S")" \
 	  --verbose \
+	  --zsync false
