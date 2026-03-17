@@ -26,3 +26,9 @@ lb config noauto \
 	  --image-name "blu-$(basename "${PWD}")-$(date +"%Y:%m:%d-%H:%M:%S")" \
 	  --verbose \
 	  --zsync false
+
+# System-wide configuration
+cp --verbose \
+   --recursive \
+   --force \
+   auto/config.d/* config/
