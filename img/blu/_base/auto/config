@@ -32,3 +32,9 @@ cp --verbose \
    --recursive \
    --force \
    auto/config.d/* config/
+
+# 'live-build' prepackaged reproducible build scripts
+cp --verbose \
+   --symbolic-link \
+   --force \
+   /usr/share/doc/live-build/examples/hooks/reproducible/* config/hooks/normal/
