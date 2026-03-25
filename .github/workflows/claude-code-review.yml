@@ -9,6 +9,8 @@ on:
       - ready_for_review
       - reopened
 
+permissions: {}
+
 jobs:
   claude-review:
     runs-on: ubuntu-24.04

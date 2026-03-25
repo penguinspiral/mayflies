@@ -16,6 +16,8 @@ on:
     types:
       - submitted
 
+permissions: {}
+
 jobs:
   claude:
     if: |
