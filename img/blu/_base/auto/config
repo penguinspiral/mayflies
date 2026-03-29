@@ -42,3 +42,6 @@ cp --verbose \
 # Build-time live-build(7) environment variables
 env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
 echo "LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/live-build.env
+
+# Build-time Mayflies "project" specific environment variables
+env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
