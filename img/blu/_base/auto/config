@@ -38,3 +38,7 @@ cp --verbose \
    --symbolic-link \
    --force \
    /usr/share/doc/live-build/examples/hooks/reproducible/* config/hooks/normal/
+
+# Build-time live-build(7) environment variables
+env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
+echo "LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/live-build.env
