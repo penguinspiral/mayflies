@@ -1,0 +1,37 @@
+# Changelog
+
+## 1.0.0 (2026-04-18)
+
+
+### Features
+
+* Add claude GitHub actions ([#39](https://github.com/penguinspiral/mayflies/issues/39)) ([4a395f7](https://github.com/penguinspiral/mayflies/commit/4a395f76c306b0d362bfb39b11b5a69f8b20dcf5))
+* Add Makefile boilerplate helper functions & targets ([6b40d63](https://github.com/penguinspiral/mayflies/commit/6b40d632dae30087c7d8c80be9c1f31811e778d6))
+* Add Makefile interface to Containerfile creation and publishing ([d12475a](https://github.com/penguinspiral/mayflies/commit/d12475a78043a85e93c1e3f14766d31316fd8daa))
+* Add Makefile interface to Containerfile creation and publishing ([460974f](https://github.com/penguinspiral/mayflies/commit/460974f94542a08e5ba89c8c86c6dbcf56f5bd3b))
+* **ci:** Add CSPELL linter config and project dictionary ([59e316c](https://github.com/penguinspiral/mayflies/commit/59e316c18e733fde9cfa964342ea1cf918fb6de3))
+* **ci:** Add MegaLinter CSPELL configuration ([b122e71](https://github.com/penguinspiral/mayflies/commit/b122e710dbb39667f41b8261666ca2e6728ccece))
+* **ci:** Claude Code Review GitHub workflow ([87ad7f9](https://github.com/penguinspiral/mayflies/commit/87ad7f91ad5f8dcde5447cadac502c230e814cae))
+* **ci:** Claude PR Assistant GitHub workflow ([c68d61d](https://github.com/penguinspiral/mayflies/commit/c68d61de3859197b3a428e60fe9270792b43d784))
+* **claude:** Allow Renovate Bot action invocation ([8eccbcd](https://github.com/penguinspiral/mayflies/commit/8eccbcd51185337bf6682485dc7a2084123b8d43))
+* **claude:** Allow Renovate Bot action invocation ([#41](https://github.com/penguinspiral/mayflies/issues/41)) ([46c2a3d](https://github.com/penguinspiral/mayflies/commit/46c2a3dc9ce949571b9ab3808c42430ccd29f846))
+* Define project Containerfile ([c1b9b13](https://github.com/penguinspiral/mayflies/commit/c1b9b139ebde03ae59936e7cdecfc29ef89c62bd))
+* Define project Containerfile ([e0b17fa](https://github.com/penguinspiral/mayflies/commit/e0b17fabbee248d2cb657e6fb18d53631e46d0fd))
+* **oci:** Add sudo option via Makefile ([46d964e](https://github.com/penguinspiral/mayflies/commit/46d964e6fc7be86cb6a2936384c9b1d7df950ae3))
+* **readme:** Define README for Containerfile creation and publishing ([31e1eff](https://github.com/penguinspiral/mayflies/commit/31e1effd8ad7e1a7ed9ef62af06758b3289951d5))
+
+
+### Bug Fixes
+
+* **ci:** Apply prettier lint fixes ([997ad83](https://github.com/penguinspiral/mayflies/commit/997ad836e39e75c66ad9efb32b3de6d7774b2c10))
+* **ci:** Apply yamllint linter fixes ([b53bbc9](https://github.com/penguinspiral/mayflies/commit/b53bbc96e9898a806d0e4ddbeec1d24dc030fec9))
+* **ci:** Comment out empty env block MegaLinter workflow ([638e48b](https://github.com/penguinspiral/mayflies/commit/638e48ba27e304275d9c9831a0ff1c5e8f7148aa))
+* **ci:** Fix GH PR merge check logic ([e26320c](https://github.com/penguinspiral/mayflies/commit/e26320c55eadc02bcf0716dfca07b0eb2a106db6))
+* **ci:** Omit extraneous square bracket from mega-linter workflow ([a8f7eaa](https://github.com/penguinspiral/mayflies/commit/a8f7eaadcd447ea489029af6e601df994f5b68ce))
+* **ci:** Run OCI CI/CD pipeline upon specific PR events ([cfdc06f](https://github.com/penguinspiral/mayflies/commit/cfdc06f3c67e6d88d9c42401ed8738c111849407))
+* **ci:** Unconditionally run docker.io authentication ([0c5ed4a](https://github.com/penguinspiral/mayflies/commit/0c5ed4a02e7dacf121b5337a1a20d6c5c5938aae))
+* **ci:** Use GH Action full-length commit SHA ([6708245](https://github.com/penguinspiral/mayflies/commit/6708245bd40da6fa8a10e0584700857f58321632))
+* **oci:** Explicitly reference build context during OCI build ([28f8150](https://github.com/penguinspiral/mayflies/commit/28f81507aca21e14f640b5ab6558362e39cc936b))
+* **oci:** Explicitly reference Containerfile during OCI build ([63c7998](https://github.com/penguinspiral/mayflies/commit/63c7998e511209cf7340e158feef2fea7df477c7))
+* **oci:** Remove hardcoded package versions ([79299f1](https://github.com/penguinspiral/mayflies/commit/79299f132e3a164410d76d14c875066227692557))
+* **oci:** Tag OCI image prefix with dockerhub account ([67086d0](https://github.com/penguinspiral/mayflies/commit/67086d0e6ab2f86347565f3d3c16c6ef14dd696d))
