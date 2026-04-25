@@ -8,16 +8,16 @@ lb config noauto \
 	  --clean \
 	  --debian-installer none \
 	  --debootstrap-options='--include=ca-certificates' \
-	  --distribution ${LB_DEBIAN_RELEASE} \
+	  --distribution ${MAYFLIES_LB_DEBIAN_RELEASE} \
 	  --ignore-system-defaults \
-	  --mirror-binary ${LB_MIRROR} \
-	  --mirror-bootstrap ${LB_MIRROR} \
-	  --mirror-chroot ${LB_MIRROR} \
-	  --mirror-debian-installer ${LB_MIRROR} \
-	  --parent-mirror-binary ${LB_MIRROR} \
-	  --parent-mirror-bootstrap ${LB_MIRROR} \
-	  --parent-mirror-chroot ${LB_MIRROR} \
-	  --parent-mirror-debian-installer ${LB_MIRROR} \
+	  --mirror-binary ${MAYFLIES_LB_MIRROR} \
+	  --mirror-bootstrap ${MAYFLIES_LB_MIRROR} \
+	  --mirror-chroot ${MAYFLIES_LB_MIRROR} \
+	  --mirror-debian-installer ${MAYFLIES_LB_MIRROR} \
+	  --parent-mirror-binary ${MAYFLIES_LB_MIRROR} \
+	  --parent-mirror-bootstrap ${MAYFLIES_LB_MIRROR} \
+	  --parent-mirror-chroot ${MAYFLIES_LB_MIRROR} \
+	  --parent-mirror-debian-installer ${MAYFLIES_LB_MIRROR} \
 	  --memtest 'memtest86+' \
 	  --mode debian \
 	  --net-tarball false \
@@ -41,10 +41,10 @@ cp --verbose \
 
 # Build-time live-build(7) environment variables
 env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
-echo "LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/live-build.env
 
 # Build-time Mayflies "project" specific environment variables
 env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
+echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/project.env
 
 # Source generated LB configuration as environment variables
 set -a
