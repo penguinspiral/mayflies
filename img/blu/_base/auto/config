@@ -46,6 +46,11 @@ echo "LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayf
 # Build-time Mayflies "project" specific environment variables
 env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
 
+# Source generated LB configuration as environment variables
+set -a
+for conf in config/{binary,bootstrap,chroot,common,source}; do source "${conf}"; done
+set +a
+
 # Render templates (.envsubst extension) & cleanup
 for template in $(find config/ -name '*.envsubst'); do
   envsubst < "${template}" > "${template%.*}"
