@@ -46,7 +46,8 @@ env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-
 env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
 echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/project.env
 
-# Source generated LB configuration as environment variables
+# Source generated live-build(7) configuration as environment variables
+# Important: Variables are considered unstable, consume knowingly
 set -a
 for conf in config/{binary,bootstrap,chroot,common,source}; do source "${conf}"; done
 set +a
