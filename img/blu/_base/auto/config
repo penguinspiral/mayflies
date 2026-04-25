@@ -39,13 +39,6 @@ cp --verbose \
    --force \
    /usr/share/doc/live-build/examples/hooks/reproducible/* config/hooks/normal/
 
-# Build-time live-build(7) environment variables
-env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
-
-# Build-time Mayflies "project" specific environment variables
-env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
-echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/project.env
-
 # Source generated live-build(7) configuration as environment variables
 # Important: Variables are considered unstable, consume knowingly
 set -a
@@ -57,6 +50,13 @@ for template in $(find config/ -name '*.envsubst'); do
   envsubst < "${template}" > "${template%.*}"
   rm "${template}"
 done
+
+# Build-time live-build(7) environment variables
+env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
+
+# Build-time Mayflies "project" specific environment variables
+env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
+echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/project.env
 
 # Global, miscellaneous environment variables (catch-all)
 env | grep --invert-match --extended-regexp '(^LB_|^MAYFLIES_)' | tee --append config/includes.chroot/etc/default/mayflies/global.env
