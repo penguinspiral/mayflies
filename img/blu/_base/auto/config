@@ -54,9 +54,9 @@ done
 # Build-time live-build(7) environment variables
 env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
 
-# Build-time Mayflies "project" specific environment variables
-env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/project.env
-echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/mayflies/project.env
+# Build-time Mayflies "target" specific environment variables
+env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/target.env
+echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/default/mayflies/target.env
 
 # Global, miscellaneous environment variables (catch-all)
 env | grep --invert-match --extended-regexp '(^LB_|^MAYFLIES_)' | tee --append config/includes.chroot/etc/default/mayflies/global.env
