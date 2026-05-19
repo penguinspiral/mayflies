@@ -1,0 +1,37 @@
+[Unit]
+# Idempotent disk management gated by Mayflies host "target" Git commit SHA
+# Constructs a reproducible GPT GUID: Device ID (%i) + Git commit SHA
+# Avoids conflicting GUIDs when templating multiple block devices
+# Prevents online, in-place mutation (commit SHA) with device mount detection
+# Disk partitioning & formatting performed by systemd-repartd(8)
+Description=systemd-repart.d(5) disk configuration (%i)
+ConditionPathIsSymbolicLink=/dev/disk/by-id/%i
+
+# Mirroring systemd-repart.service dependencies
+DefaultDependencies=no
+Wants=modprobe@loop.service modprobe@dm_mod.service
+After=initrd-usr-fs.target modprobe@loop.service modprobe@dm_mod.service systemd-tpm2-setup-early.service
+Before=initrd-root-fs.target
+Conflicts=shutdown.target initrd-switch-root.target
+Before=shutdown.target initrd-switch-root.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/mayflies/target.env
+ExecCondition=/usr/bin/bash -c '! grep --quiet ^/dev/$(basename $(readlink /dev/disk/by-id/%i) ) /proc/mounts'
+ExecCondition=/usr/bin/bash -c '! [[ $(udevadm info --query=property --property=ID_PART_TABLE_UUID --value /dev/disk/by-id/%i) == $(uuidgen --namespace @dns --sha1 --name "%i-${MAYFLIES_TARGET_COMMIT_HASH}") ]]'
+ExecStart=/usr/bin/systemd-repart --seed=random \
+                                  --definitions=/etc/repart.d/%i \
+                                  --pretty=false \
+                                  --dry-run=no \
+                                  --empty=force \
+                                  --discard=false \
+                                  /dev/disk/by-id/%i
+
+# Ensure udevd device node references are current, alleviates race conditions
+ExecStart=/usr/bin/udevadm trigger --settle --subsystem-match=block
+ExecStart=/usr/bin/bash -c '/usr/sbin/sgdisk --disk-guid=$(uuidgen --namespace @dns --sha1 --name "%i-${MAYFLIES_TARGET_COMMIT_HASH}") /dev/disk/by-id/%i'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target
