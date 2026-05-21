@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount /mnt/scratch
+After=systemd-repart-disk@nvme-Samsung_SSD_990_EVO_Plus_1TB_S7U5NJ0Y718960L.service
+
+[Mount]
+What=/dev/disk/by-partlabel/scratch
+Where=/mnt/scratch
+Type=ext4
+Options=nofail,defaults,x-mount.mkdir
+
+[Install]
+WantedBy=sysinit.target
