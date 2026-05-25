@@ -10,5 +10,5 @@ set -euo pipefail
 # Create password for chpasswd(8) ingestion (/etc/shadow)
 # cspell:disable
 # shellcheck disable=SC2016
-chpasswd --encrypted <<< 'debian:$y$j9T$ZQOFkgZCebsmdxMWJXLbs0$E/ZJ4qzKa19817qDMUM9KpKtYfG08QZbsXOBAs2XoF0'
+chpasswd --encrypted <<<'debian:$y$j9T$ZQOFkgZCebsmdxMWJXLbs0$E/ZJ4qzKa19817qDMUM9KpKtYfG08QZbsXOBAs2XoF0'
 # cspell:enable
