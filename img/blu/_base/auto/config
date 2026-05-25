@@ -43,7 +43,9 @@ cp --verbose \
 # Important: Variables are considered unstable, consume knowingly
 set -a
 # shellcheck source=/dev/null
-for conf in config/{binary,bootstrap,chroot,common,source}; do source "${conf}"; done
+for conf in config/{binary,bootstrap,chroot,common,source}; do
+    [[ -f "${conf}" ]] && source "${conf}"
+done
 set +a
 
 # Render templates (.envsubst extension) & cleanup
