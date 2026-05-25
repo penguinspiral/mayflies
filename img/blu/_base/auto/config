@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -u
+set -euo pipefail
 
 lb config noauto \
     --apt-options '--yes --option Acquire::Retries=5 --option Acquire::Check-Valid-Until=false' \
