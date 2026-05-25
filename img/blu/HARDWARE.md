@@ -7,7 +7,7 @@ Hardware inventory of host: `blu`.
 
 Generated with [inxi(1)](https://manpages.debian.org/testing/inxi/inxi.1.en.html):
 
-```
+```bash
 $ sudo inxi --expanded
 System:
   Host: blu Kernel: 6.12.27-amd64 arch: x86_64 bits: 64
