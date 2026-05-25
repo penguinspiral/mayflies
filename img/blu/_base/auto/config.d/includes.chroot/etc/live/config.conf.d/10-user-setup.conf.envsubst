@@ -2,8 +2,11 @@
 # https://manpages.debian.org/unstable/open-infrastructure-system-config/live-config.7.en.html#Configuration_Files
 LIVE_HOSTNAME="${MAYFLIES_HOSTNAME}"
 # Dependency: OpenSSH server configuration
-# Update file name of authorised key to mirror LIVE_USERNAME value
-# File: includes.chroot/etc/ssh/authorized_keys/LIVE_USERNAME
+#   Update file name of authorised key to mirror LIVE_USERNAME value
+#   File: includes.chroot/etc/ssh/authorized_keys/LIVE_USERNAME
+# Depedency: live-config(7) hook script password management
+#   Update `chpasswd` invocation to reflect LIVE_USERNAME value
+#   File: includes.chroot/usr/lib/live/config-hooks/10-passwd.sh
 LIVE_USERNAME="debian"
 LIVE_USER_FULLNAME="Myles Grindon"
 LIVE_CONFIG_NOAUTOLOGIN=true
