@@ -14,6 +14,7 @@ System:
   Console: pty pts/1 Distro: Debian GNU/Linux 13 (trixie)
 
 Machine:
+  # cspell:disable-next-line
   Type: Desktop System: Micro (HK) Tech product: Venus Series v: 1.0 serial: MF217LS129QQMQA00056
   Mobo: Shenzhen Meigao Equipment model: AHWSA v: 1.0 serial: FHWSA129019C1020398 UEFI: American
     Megatrends LLC. v: 1.27 date: 04/03/2025
