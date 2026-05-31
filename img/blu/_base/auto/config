@@ -51,7 +51,7 @@ set +a
 # Render templates (.envsubst extension) & cleanup
 shopt -s globstar nullglob
 for template in config/**/*.envsubst; do
-    envsubst <"${template}" >"${template%.*}"
+    envsubst <"${template}" >"${template%.envsubst}"
     rm "${template}"
 done
 shopt -u globstar nullglob
