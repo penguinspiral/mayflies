@@ -48,11 +48,16 @@ for conf in config/{binary,bootstrap,chroot,common,source}; do
 done
 set +a
 
-# Render templates (.envsubst extension) & cleanup
 shopt -s globstar nullglob
+# Render templates (.envsubst extension) & cleanup
 for template in config/**/*.envsubst; do
     envsubst <"${template}" >"${template%.envsubst}"
     rm "${template}"
+done
+
+# Render template filenames
+for file in config/**/'$'*.varfile; do
+    mv "${file}" "$(envsubst <<<"${file%.varfile}")"
 done
 shopt -u globstar nullglob
 
