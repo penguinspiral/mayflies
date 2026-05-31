@@ -42,5 +42,6 @@ sync
 targetable
 Thhmmss
 trixie
+varfile
 vars
 zsync
