@@ -18,3 +18,14 @@ BUILD_TARGET_ENV_FILE   := $(BUILD_TARGET_DIR)/target.env
 # Supports explicit override at build-time
 BUILD_TARGET_COMMIT_SHA_CMD := $(shell git log --max-count=1 --pretty=format:"%h" -- $(BUILD_TARGET_DIR))
 BUILD_TARGET_COMMIT_SHA     ?= $(if $(BUILD_TARGET_COMMIT_SHA_CMD),$(BUILD_TARGET_COMMIT_SHA_CMD),untracked)
+
+# Container engine (CRI) autodetect
+ifneq (,$(shell command -v podman 2>/dev/null))
+    CRI_BINARY ?= podman
+endif
+ifneq (,$(shell command -v docker 2>/dev/null))
+    CRI_BINARY ?= docker
+endif
+ifndef CRI_BINARY
+    $(error "Error: Supported container engine binaries 'podman', 'docker' not found. Exiting.")
+endif
