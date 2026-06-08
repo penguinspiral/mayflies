@@ -29,3 +29,23 @@ endif
 ifndef CRI_BINARY
     $(error "Error: Supported container engine binaries 'podman', 'docker' not found. Exiting.")
 endif
+
+# Container engine (CRI) agnostic defaults
+CRI_CMD         := run
+CRI_CWD_VOLUME  := $(BUILD_TARGET_DIR):/app/$(BUILD_TARGET):rw
+CRI_CONF_VOLUME := $(BUILD_TARGET_DIR)/auto:/app/$(BUILD_TARGET)/auto:ro
+CRI_OPTS := --rm \
+            --privileged \
+            --user root \
+            --volume $(CRI_CWD_VOLUME) \
+            --volume $(CRI_CONF_VOLUME) \
+            --workdir /app/$(BUILD_TARGET) \
+            --env MAYFLIES_HOSTNAME=$(BUILD_HOSTNAME) \
+            --env MAYFLIES_TARGET=$(BUILD_TARGET) \
+            --env MAYFLIES_TARGET_COMMIT_HASH=$(BUILD_TARGET_COMMIT_SHA)
+ifneq (,$(wildcard $(BUILD_HOSTNAME_ENV_FILE)))
+    CRI_OPTS += --env-file $(BUILD_HOSTNAME_ENV_FILE)
+endif
+ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
+    CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
+endif
