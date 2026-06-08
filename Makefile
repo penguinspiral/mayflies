@@ -13,3 +13,8 @@ BUILD_HOSTNAME_DIR      := $(CURDIR)/img/$(BUILD_HOSTNAME)
 BUILD_HOSTNAME_ENV_FILE := $(BUILD_HOSTNAME_DIR)/host.env
 BUILD_TARGET_DIR        := $(BUILD_HOSTNAME_DIR)/$(BUILD_TARGET)
 BUILD_TARGET_ENV_FILE   := $(BUILD_TARGET_DIR)/target.env
+
+# Handle case whereby host and/or target is not managed in Git currently
+# Supports explicit override at build-time
+BUILD_TARGET_COMMIT_SHA_CMD := $(shell git log --max-count=1 --pretty=format:"%h" -- $(BUILD_TARGET_DIR))
+BUILD_TARGET_COMMIT_SHA     ?= $(if $(BUILD_TARGET_COMMIT_SHA_CMD),$(BUILD_TARGET_COMMIT_SHA_CMD),untracked)
