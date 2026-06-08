@@ -58,6 +58,12 @@ LB_BINARY := /usr/bin/lb
 .PHONY: config build clean distclean enter help
 
 .DEFAULT_GOAL := help
+
+ifneq ($(MAKECMDGOALS),help)
+    $(call check_defined, BUILD_HOSTNAME, "Missing host! Exiting.")
+    $(call check_defined, BUILD_TARGET, "Missing target! Exiting.")
+endif
+
 config:        ## Render build-time configurations
 	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
