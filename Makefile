@@ -49,5 +49,26 @@ endif
 ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
     CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
 endif
+ifeq ($(MAKECMDGOALS),enter)
+    CRI_OPTS += --interactive --tty
+endif
 
 LB_BINARY := /usr/bin/lb
+
+.PHONY: config build clean distclean enter help
+
+.DEFAULT_GOAL := help
+config:        ## Render build-time configurations
+	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+
+build: config  ## Build specified image target
+	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+
+clean:         ## Remove build artifacts for a target
+	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+
+distclean:     ## Remove build artifacts & cache for a target
+	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) clean --purge
+
+enter:         ## Enter an interactive session
+	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) /bin/bash
