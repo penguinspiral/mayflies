@@ -49,3 +49,5 @@ endif
 ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
     CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
 endif
+
+LB_BINARY := /usr/bin/lb
