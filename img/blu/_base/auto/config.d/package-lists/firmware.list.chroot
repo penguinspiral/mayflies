@@ -1,2 +1,6 @@
 # Intel iGPU GuC firmware: i915/{adlp_guc_70.bin, adlp_dmc.bin, adlp_dmc_ver2_16.bin}
 firmware-intel-graphics
+
+# Bluetooth HCI firmware: mediatek/BT_RAM_CODE_MT7922_1_1_hdr.bin
+# Wi-Fi firmware: mediatek/{WIFI_RAM_CODE_MT7922_1.bin, WIFI_MT7922_patch_mcu_1_1_hdr.bin}
+firmware-mediatek
