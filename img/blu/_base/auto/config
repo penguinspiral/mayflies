@@ -11,6 +11,7 @@ lb config noauto \
     --distribution "${MAYFLIES_LB_DEBIAN_RELEASE}" \
     --ignore-system-defaults \
     --archive-areas 'main contrib non-free non-free-firmware' \
+    --firmware-chroot false \
     --mirror-binary "${MAYFLIES_LB_MIRROR}" \
     --mirror-bootstrap "${MAYFLIES_LB_MIRROR}" \
     --mirror-chroot "${MAYFLIES_LB_MIRROR}" \
