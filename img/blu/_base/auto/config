@@ -10,6 +10,7 @@ lb config noauto \
     --debootstrap-options='--include=ca-certificates' \
     --distribution "${MAYFLIES_LB_DEBIAN_RELEASE}" \
     --ignore-system-defaults \
+    --archive-areas 'main contrib non-free non-free-firmware' \
     --mirror-binary "${MAYFLIES_LB_MIRROR}" \
     --mirror-bootstrap "${MAYFLIES_LB_MIRROR}" \
     --mirror-chroot "${MAYFLIES_LB_MIRROR}" \
