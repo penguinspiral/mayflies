@@ -5,6 +5,7 @@ bootappend
 btusb
 buildah
 Containerfile
+contrib
 debootstrap
 defenses
 DIRTRIM
