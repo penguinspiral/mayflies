@@ -2,9 +2,9 @@ include ../_shared/checks.mk
 include ../_shared/targets/*.mk
 
 # Upstream Debian GNU/Linux OCI image
-DEBIAN_OCI_TAG     ?= trixie-20260518
+DEBIAN_OCI_TAG     ?= trixie-20260803
 # Valid Formats: yyyymmddThhmmssZ, yyyymmdd
-SNAPSHOT_TIMESTAMP ?= 20260518
+SNAPSHOT_TIMESTAMP ?= 20260803
 
 MAYFLIES_OCI_NAME := mayflies
 MAYFLIES_OCI_TAG  ?= $(DEBIAN_OCI_TAG)
