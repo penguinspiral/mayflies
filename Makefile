@@ -1,6 +1,8 @@
 include _shared/checks.mk
 include _shared/targets/*.mk
 
+REPO_ROOT := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+
 # Project specific build container, ref: oci/Containerfile
 OCI_REGISTRY := docker.io/penguinspiral
 OCI_IMG      := mayflies
@@ -10,7 +12,7 @@ OCI_URI      := $(OCI_REGISTRY)/$(OCI_IMG)@sha256:$(OCI_SHA256)
 
 BUILD_HOSTNAME          ?=
 BUILD_TARGET            ?=
-BUILD_HOSTNAME_DIR      := $(CURDIR)/img/$(BUILD_HOSTNAME)
+BUILD_HOSTNAME_DIR      := $(REPO_ROOT)/img/$(BUILD_HOSTNAME)
 BUILD_HOSTNAME_ENV_FILE := $(BUILD_HOSTNAME_DIR)/host.env
 BUILD_TARGET_DIR        := $(BUILD_HOSTNAME_DIR)/$(BUILD_TARGET)
 BUILD_TARGET_ENV_FILE   := $(BUILD_TARGET_DIR)/target.env
