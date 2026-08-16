@@ -21,6 +21,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
                     --option 'Acquire::Check-Valid-Until=false' \
                     ca-certificates \
                     gettext-base \
+                    git \
                     live-build \
     && rm --recursive \
        --force \
