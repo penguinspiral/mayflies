@@ -71,6 +71,8 @@ LB_BINARY := /usr/bin/lb
 ifneq ($(MAKECMDGOALS),help)
     $(call check_defined, BUILD_HOSTNAME, "Missing host! Exiting.")
     $(call check_defined, BUILD_TARGET, "Missing target! Exiting.")
+    $(call check_path, $(BUILD_HOSTNAME_DIR), "Missing host! Exiting.")
+    $(call check_path, $(BUILD_TARGET_DIR), "Missing target! Exiting.")
 endif
 
 config:        ## Render build-time configurations
