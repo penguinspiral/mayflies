@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+lb config noauto \
+    --apt-options '--yes --option Acquire::Retries=5 --option Acquire::Check-Valid-Until=false' \
+    --apt-source-archives false \
+    --bootappend-live 'boot=live live-config.components ip=frommedia console=tty1 console=uart8250,io,0x3060,115200' \
+    --clean \
+    --debian-installer none \
+    --debootstrap-options='--include=ca-certificates' \
+    --distribution "${MAYFLIES_LB_DEBIAN_RELEASE}" \
+    --ignore-system-defaults \
+    --archive-areas 'main contrib non-free non-free-firmware' \
+    --firmware-chroot false \
+    --mirror-binary "${MAYFLIES_LB_MIRROR}" \
+    --mirror-bootstrap "${MAYFLIES_LB_MIRROR}" \
+    --mirror-chroot "${MAYFLIES_LB_MIRROR}" \
+    --mirror-debian-installer "${MAYFLIES_LB_MIRROR}" \
+    --parent-mirror-binary "${MAYFLIES_LB_MIRROR}" \
+    --parent-mirror-bootstrap "${MAYFLIES_LB_MIRROR}" \
+    --parent-mirror-chroot "${MAYFLIES_LB_MIRROR}" \
+    --parent-mirror-debian-installer "${MAYFLIES_LB_MIRROR}" \
+    --memtest 'memtest86+' \
+    --mode debian \
+    --net-tarball false \
+    --updates false \
+    --security false \
+    --image-name "${MAYFLIES_HOSTNAME}-${MAYFLIES_TARGET}-$(date +"%Y:%m:%d-%H:%M:%S")" \
+    --verbose \
+    --zsync false
+
+# Include '_base' target configuration
+if [[ -v MAYFLIES_HOST_BASE_SHA ]]; then
+    git -c safe.directory='*' \
+        -c tar.umask=0022 \
+        -C /repo \
+        archive "${MAYFLIES_HOST_BASE_SHA}" "img/${MAYFLIES_HOSTNAME}/_base/auto/config.d" |
+        tar --extract \
+            --preserve-permissions \
+            --strip-components=5 \
+            --directory config/
+fi
+
+# System-wide configuration
+cp --verbose \
+    --recursive \
+    --force \
+    auto/config.d/* config/
+
+# 'live-build' prepackaged reproducible build scripts
+cp --verbose \
+    --symbolic-link \
+    --force \
+    /usr/share/doc/live-build/examples/hooks/reproducible/* config/hooks/normal/
+
+# Source generated live-build(7) configuration as environment variables
+# Important: Variables are considered unstable, consume knowingly
+set -a
+# shellcheck source=/dev/null
+for conf in config/{binary,bootstrap,chroot,common,source}; do
+    [[ -f "${conf}" ]] && source "${conf}"
+done
+set +a
+
+shopt -s globstar nullglob
+# Render templates (.envsubst extension) & cleanup
+for template in config/**/*.envsubst; do
+    envsubst <"${template}" >"${template%.envsubst}"
+    rm "${template}"
+done
+
+# Render template filenames
+for file in config/**/'$'*.varfile; do
+    mv "${file}" "$(envsubst <<<"${file%.varfile}")"
+done
+shopt -u globstar nullglob
+
+# Build-time live-build(7) environment variables
+env | grep ^LB_ | tee --append config/includes.chroot/etc/default/mayflies/live-build.env
+
+# Build-time Mayflies "target" specific environment variables
+env | grep ^MAYFLIES_ | tee --append config/includes.chroot/etc/default/mayflies/target.env
+echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot/etc/default/mayflies/target.env
+
+# Global, miscellaneous environment variables (catch-all)
+env | grep --invert-match --extended-regexp '(^LB_|^MAYFLIES_)' | tee --append config/includes.chroot/etc/default/mayflies/global.env
