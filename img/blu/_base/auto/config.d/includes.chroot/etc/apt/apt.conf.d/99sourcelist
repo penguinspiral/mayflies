@@ -1,0 +1,6 @@
+# Mayflies: Build-time "hack" to ignore live-build(7)'s generated sources.list
+#           Avoids duplicate repository configuration (.source file) conflict
+
+# Nullify APT's primary package configuration file: /etc/apt/sources.list
+# APT fallback: '/etc/apt/sources.list.d/*.{list,sources}' (Dir::Etc::sourceparts)
+Dir::Etc::sourcelist "/dev/null";

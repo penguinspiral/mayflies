@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# shellcheck source=/dev/null
+source /etc/default/mayflies/target.env
+# shellcheck source=/dev/null
+source /etc/default/mayflies/live-build.env
+
+printf '
+\033[38;2;0;229;255m888b     d888                    .d888 888\033[0m
+\033[38;2;0;209;242m8888b   d8888                   d88P"  888\033[0m
+\033[38;2;0;189;228m88888b.d88888                   888    888\033[0m
+\033[38;2;0;169;215m888Y88888P888  8888b.  888  888 888888 888 888  888\033[0m
+\033[38;2;0;149;201m888 Y888P 888     "88b 888  888 888    888 888  888\033[0m
+\033[38;2;0;129;188m888  Y8P  888 .d888888 888  888 888    888 888  888\033[0m
+\033[38;2;0;110;174m888   "   888 888  888 Y88b 888 888    888 Y88b 888\033[0m
+\033[38;2;0;90;161m888       888 "Y888888  "Y88888 888    888  "Y88888\033[0m
+\033[38;2;0;70;147m                            888                 888\033[0m
+\033[38;2;0;50;134m                       Y8b d88P            Y8b d88P\033[0m
+\033[38;2;0;30;120m                        "Y88P"              "Y88P"\033[0m
+'
+
+row() { printf "\033[1;97m»\033[0m \033[1;97m%-16s\033[0m\033[1;34m%s\033[0m\n" "$1" "$2"; }
+
+echo
+row "Target:" "$MAYFLIES_TARGET"
+row "Build SHA:" "$MAYFLIES_TARGET_COMMIT_HASH"
+row "Build mirror:" "$MAYFLIES_LB_MIRROR"
+row "live-build(7):" "$MAYFLIES_LB_VERSION"
+row "Debian release:" "$MAYFLIES_LB_DEBIAN_RELEASE"
+echo
