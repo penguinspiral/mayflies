@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+lb clean noauto "${@}"
+
+rm --recursive --force config/
