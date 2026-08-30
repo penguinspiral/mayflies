@@ -1,0 +1,7 @@
+# man live-config 7
+# https://manpages.debian.org/unstable/open-infrastructure-system-config/live-config.7.en.html#Configuration_Files
+LIVE_HOSTNAME="${MAYFLIES_HOSTNAME}"
+LIVE_USERNAME="${MAYFLIES_LIVE_USERNAME}"
+LIVE_USER_FULLNAME="Myles Grindon"
+LIVE_CONFIG_NOAUTOLOGIN=true
+LIVE_HOOKS=filesystem

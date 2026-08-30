@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# The 'live-config' package does not expose an interface for setting the live user password
+# Authors of the Debian Live project expect the use of a boot-time hook:
+# https://live-team.pages.debian.net/live-manual/html/live-manual/customizing-run-time-behaviours.en.html
+
+# cspell:disable
+# shellcheck disable=SC2016
+chpasswd --encrypted <<<'${MAYFLIES_LIVE_USERNAME}:${MAYFLIES_LIVE_PASSWORD}'
+# cspell:enable
