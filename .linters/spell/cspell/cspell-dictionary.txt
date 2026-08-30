@@ -1,3 +1,4 @@
+agetty
 AHWSA
 ALSA
 AMCP
@@ -6,6 +7,7 @@ btusb
 buildah
 Containerfile
 contrib
+creds
 debootstrap
 defenses
 DIRTRIM
@@ -14,6 +16,7 @@ favor
 FHWSA
 Forky
 frommedia
+ifup
 igpu
 inxi
 linters
@@ -22,6 +25,7 @@ Megatrends
 Meigao
 Meigh
 memtest
+Minisforum
 mkpasswd
 Mobo
 netbash
@@ -30,8 +34,11 @@ noncommercially
 noninteractive
 nullglob
 nvme
+pdns
 penguinspiral
 pipefail
+recursor
+repart
 rfkill
 rootfs
 shellcheck
