@@ -20,6 +20,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
                     --option 'Acquire::https::snapshot.debian.org::Verify-Peer=false' \
                     --option 'Acquire::Check-Valid-Until=false' \
                     ca-certificates \
+                    gettext-base \
+                    git \
                     live-build \
     && rm --recursive \
        --force \
