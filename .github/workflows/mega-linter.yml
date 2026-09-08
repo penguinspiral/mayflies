@@ -111,6 +111,9 @@ jobs:
           # DISABLE: COPYPASTE,SPELL
           SPELL_FILTER_REGEX_EXCLUDE: (.github/workflows/)
 
+          # BASH shfmt: Use 4 spaces for indentation
+          BASH_SHFMT_ARGUMENTS: "-i 4"
+
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
         if: success() || failure()

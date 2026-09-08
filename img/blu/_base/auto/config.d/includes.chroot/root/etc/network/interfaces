@@ -1,0 +1,2 @@
+# Placeholder for 'live-boot(7)' '/lib/live/boot/9990-netbash.sh'
+# Falls back to traditional 'ifupdown' at /etc/network/interfaces
