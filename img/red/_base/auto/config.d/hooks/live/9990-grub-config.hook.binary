@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+shopt -s nullglob
+
+# Relative path during build
+declare -r GRUB_PATH=boot/grub
+
+# Sourcing order: grub.cfg -> config.cfg -> mayflies/*.cfg (lexicographical order)
+declare -r GRUB_CONFIG="${GRUB_PATH}/config.cfg"
+
+echo '# Mayflies drop-in GRUB2 configuration files' >> "${GRUB_CONFIG}"
+
+# noops if path does not exist (nullglob setting)
+for config in "${GRUB_PATH}"/mayflies/*.cfg; do
+  # Absolute path at runtime
+  echo "source /${config}" >> "${GRUB_CONFIG}"
+done
