@@ -1,0 +1,7 @@
+# APT repository used during image creation
+Types: deb
+URIs: ${MAYFLIES_LB_MIRROR}
+Suites: ${MAYFLIES_LB_DEBIAN_RELEASE}
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+Check-Valid-Until: no
