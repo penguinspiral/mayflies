@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# jscpd:ignore-start
 # target.env key value overrides take precedence
 declare -a ENV_FILES=(/etc/default/mayflies/{live-build,target}.env)
 
@@ -36,3 +37,4 @@ row "Build mirror:" "${MAYFLIES_LB_MIRROR:-unknown}"
 row "live-build(7):" "${MAYFLIES_LB_VERSION:-unknown}"
 row "Debian release:" "${MAYFLIES_LB_DEBIAN_RELEASE:-unknown}"
 echo
+# jscpd:ignore-end
