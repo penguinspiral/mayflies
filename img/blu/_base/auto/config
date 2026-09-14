@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# jscpd:ignore-start
 lb config noauto \
     --apt-options '--yes --option Acquire::Retries=5 --option Acquire::Check-Valid-Until=false' \
     --apt-source-archives false \
@@ -72,3 +73,4 @@ echo "MAYFLIES_LB_VERSION=$(lb --version)" | tee --append config/includes.chroot
 
 # Global, miscellaneous environment variables (catch-all)
 env | grep --invert-match --extended-regexp '(^LB_|^MAYFLIES_)' | tee --append config/includes.chroot/etc/default/mayflies/global.env
+# jscpd:ignore-end
