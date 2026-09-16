@@ -29,6 +29,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Build Containerfile (buildah)
         run: make build OCI_BUILD_BINARY=buildah
