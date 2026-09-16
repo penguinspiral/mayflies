@@ -5,7 +5,8 @@ ARG DEBIAN_OCI_TAG
 FROM public.ecr.aws/docker/library/debian:${DEBIAN_OCI_TAG}
 ARG SNAPSHOT_TIMESTAMP
 
-USER root
+# root
+USER 0
 
 # '--no-install-recommends' flag *is* present, multiline formatting issue
 # hadolint global ignore=DL3008

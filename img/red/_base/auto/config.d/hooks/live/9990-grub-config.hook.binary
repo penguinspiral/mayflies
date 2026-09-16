@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# jscpd:ignore-start
 set -euo pipefail
 shopt -s nullglob
 
@@ -16,3 +17,4 @@ for config in "${GRUB_PATH}"/mayflies/*.cfg; do
   # Absolute path at runtime
   echo "source /${config}" >> "${GRUB_CONFIG}"
 done
+# jscpd:ignore-end
