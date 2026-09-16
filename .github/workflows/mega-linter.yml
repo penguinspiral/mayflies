@@ -29,8 +29,6 @@ on: # yamllint disable-line rule:truthy - false positive
 # If APPLY_FIXES is used, defines if the fixes are directly committed (commit)
 # or posted in a PR (pull_request)
 # APPLY_FIXES_MODE: commit
-env:
-  ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES: ${{ secrets.GITHUB_TOKEN }}
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -61,6 +59,7 @@ jobs:
           # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to
           # improve performance
           fetch-depth: 0
+          persist-credentials: false
 
       # Detect if mega-linter.yml was modified: Validate all codebase
       - name: Check Megalinter workflow config changes
@@ -74,7 +73,7 @@ jobs:
 
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.io/latest/flavors/
-        uses: oxsecurity/megalinter@8fbdead70d1409964ab3d5afa885e18ee85388bb # v9.4.0
+        uses: oxsecurity/megalinter@15e5b45552097e318c93de385779ce3b1084052c # v10.0.0
 
         id: ml
 
@@ -105,6 +104,7 @@ jobs:
           LINTER_RULES_PATH: ".linters/"
           SPELL_CSPELL_CONFIG_FILE: "spell/cspell/cspell.yaml"
           YAML_PRETTIER_DISABLE_ERRORS: false
+          ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES: GITHUB_TOKEN
 
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE
           # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
@@ -169,9 +169,12 @@ jobs:
 
       - name: Create PR output
         if: env.APPLY_FIXES_IF_PR == 'true'
+        env:
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
+          PR_URL: ${{ steps.cpr.outputs.pull-request-url }}
         run: |
-          echo "PR Number - ${{ steps.cpr.outputs.pull-request-number }}"
-          echo "PR URL - ${{ steps.cpr.outputs.pull-request-url }}"
+          echo "PR Number - ${PR_NUMBER}"
+          echo "PR URL - ${PR_URL}"
 
       # Push new commit if applicable
       # (for now works only on PR from same repository, not from forks)
