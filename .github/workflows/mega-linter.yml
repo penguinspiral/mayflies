@@ -29,8 +29,6 @@ on: # yamllint disable-line rule:truthy - false positive
 # If APPLY_FIXES is used, defines if the fixes are directly committed (commit)
 # or posted in a PR (pull_request)
 # APPLY_FIXES_MODE: commit
-env:
-  ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES: ${{ secrets.GITHUB_TOKEN }}
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -105,6 +103,7 @@ jobs:
           LINTER_RULES_PATH: ".linters/"
           SPELL_CSPELL_CONFIG_FILE: "spell/cspell/cspell.yaml"
           YAML_PRETTIER_DISABLE_ERRORS: false
+          ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES: GITHUB_TOKEN
 
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE
           # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
