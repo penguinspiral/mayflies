@@ -1,0 +1,2 @@
+# udev rules for stable storage links (/dev/disk/by-*) for dm managed block devices
+dmsetup
