@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount /mnt/archive network file share
+After=network-online.target
+Wants=network-online.target
+
+[Mount]
+What=10.1.0.5:/app/mayflies
+Where=/mnt/archive
+Type=nfs4
+# NFS client surfaces connectivity failures, safe due to ro constraint
+Options=ro,soft,timeo=100,retrans=3
+TimeoutSec=35
+
+[Install]
+WantedBy=remote-fs.target
