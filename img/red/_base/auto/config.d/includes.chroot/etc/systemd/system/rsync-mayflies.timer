@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodic Synchronise Mayflies images
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=30s
+AccuracySec=3s
+
+[Install]
+WantedBy=timers.target
