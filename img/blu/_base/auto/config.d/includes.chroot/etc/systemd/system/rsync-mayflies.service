@@ -1,0 +1,11 @@
+[Unit]
+Description=Synchronise Mayflies images
+RequiresMountsFor=/mnt/archive /mnt/ventoy
+
+[Service]
+Type=oneshot
+Environment=RSYNC_OPTS="--itemize-changes --recursive --times --copy-links --modify-window=1 --whole-file"
+ExecStart=/usr/bin/rsync $RSYNC_OPTS /mnt/archive/img/blu/ /mnt/ventoy/target/
+ExecStart=/usr/bin/rsync $RSYNC_OPTS /mnt/archive/_shared/ /mnt/ventoy/_shared/
+Nice=19
+IOSchedulingClass=idle
