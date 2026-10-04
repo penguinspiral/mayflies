@@ -1,0 +1,11 @@
+ACTION=="remove", GOTO="vtdm_end"
+SUBSYSTEM!="block", GOTO="vtdm_end"
+KERNEL!="dm-[0-1]", GOTO="vtdm_end"
+TEST!="dm", GOTO="vtdm_end"
+ATTR{dm/name}!="sd[a-z]*[0-9]", GOTO="vtdm_end"
+ATTR{dm/uuid}=="?*", GOTO="vtdm_end"
+
+ENV{DM_UDEV_PRIMARY_SOURCE_FLAG}="1"
+OPTIONS+="link_priority=100"
+
+LABEL="vtdm_end"
