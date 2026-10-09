@@ -3,11 +3,12 @@ set -euo pipefail
 
 # Dynamic & derived build-time environment variables
 declare -rx MAYFLIES_LB_IMAGE_NAME="${MAYFLIES_HOSTNAME}-${MAYFLIES_TARGET}-$(date +"%Y%m%d-%H%M%S")"
-declare -rx MAYFLIES_LB_IMAGE_ISO="${MAYFLIES_LB_IMAGE_NAME}-amd64.hybrid.iso"
+declare -rx MAYFLIES_LB_IMAGE_ISO="${MAYFLIES_LB_IMAGE_NAME}-${MAYFLIES_ARCHITECTURE}.hybrid.iso"
 
 lb config noauto \
     --apt-options '--yes --option Acquire::Retries=5 --option Acquire::Check-Valid-Until=false' \
     --apt-source-archives false \
+    --architecture "${MAYFLIES_ARCHITECTURE}" \
     --bootappend-live 'boot=live live-config.components ip=frommedia console=tty1 console=uart8250,io,0x3060,115200' \
     --clean \
     --debian-installer none \
