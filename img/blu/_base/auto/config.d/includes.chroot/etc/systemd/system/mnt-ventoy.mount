@@ -1,0 +1,13 @@
+[Unit]
+Description=Mount /mnt/ventoy
+
+[Mount]
+# Translates to Device Mapper block device: /dev/dm-x
+What=/dev/disk/by-label/Ventoy
+Where=/mnt/ventoy
+Type=exfat
+# Flattens all file ownership users to uid 0 (root)
+Options=uid=0,gid=0,umask=022
+
+[Install]
+WantedBy=local-fs.target
