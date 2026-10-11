@@ -16,7 +16,7 @@ TARGET   ?=
 
 BUILD_HOSTNAME          := $(HOSTNAME)
 BUILD_TARGET            := $(TARGET)
-BUILD_HOSTNAME_DIR      := $(REPO_ROOT)/img/$(BUILD_HOSTNAME)
+BUILD_HOSTNAME_DIR      := $(REPO_ROOT)/host/$(BUILD_HOSTNAME)
 BUILD_HOSTNAME_ENV_FILE := $(BUILD_HOSTNAME_DIR)/host.env
 BUILD_TARGET_DIR        := $(BUILD_HOSTNAME_DIR)/$(BUILD_TARGET)
 BUILD_TARGET_ENV_FILE   := $(BUILD_TARGET_DIR)/target.env
@@ -78,7 +78,7 @@ endif
 config:        ## Render build-time configurations
 	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
-build: config  ## Build specified image target
+build: config  ## Build specified host target
 	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 clean:         ## Remove build artifacts for a target
