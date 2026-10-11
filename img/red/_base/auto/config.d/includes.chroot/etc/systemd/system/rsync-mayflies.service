@@ -5,6 +5,7 @@ RequiresMountsFor=/mnt/archive /mnt/ventoy
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/default/mayflies/rsync.env
+# Mayflies "target" images prioritised over generic shared images
 ExecStart=/usr/bin/rsync $RSYNC_OPTS $RSYNC_EXCLUDE /mnt/archive/img/red/ /mnt/ventoy/target/
 ExecStart=/usr/bin/rsync $RSYNC_OPTS /mnt/archive/_shared/ /mnt/ventoy/_shared/
 Nice=19
