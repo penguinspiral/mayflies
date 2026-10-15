@@ -39,7 +39,7 @@ jobs:
         with:
           client-id: ${{ vars.RENOVATE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RENOVATE_PRIVATE_KEY }}
-          repositories: ${{ github.event.repository.name }}
+          repositories: ${{ github.event.repository.name }} # "mayflies" (name only)
           permission-contents: write
           permission-pull-requests: write
           permission-workflows: write
@@ -56,4 +56,4 @@ jobs:
           token: ${{ steps.get_token.outputs.token }}
         env:
           LOG_LEVEL: ${{ github.event.inputs.logLevel || 'info' }}
-          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          RENOVATE_REPOSITORIES: ${{ github.repository }} # "penguinspiral/mayflies" (owner/repo)
