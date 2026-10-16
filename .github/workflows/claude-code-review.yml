@@ -11,6 +11,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: claude-code-review
+  cancel-in-progress: true
+
 jobs:
   claude-review:
     runs-on: ubuntu-24.04
