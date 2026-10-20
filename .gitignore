@@ -1,15 +1,15 @@
 # Global ignore for host/target generated configuration & build artifacts
-img/*/*/*
+host/*/*/*
 
-# Image configuration including auto scripts exclusion
-!img/*/*/auto/
-!img/*/*/auto/clean
-!img/*/*/auto/config
-!img/*/*/auto/config.d/
-!img/*/*/auto/config.d/**
+# Host configuration including auto scripts exclusion
+!host/*/*/auto/
+!host/*/*/auto/clean
+!host/*/*/auto/config
+!host/*/*/auto/config.d/
+!host/*/*/auto/config.d/**
 
-# Image target specific environment variables
-!img/*/*/target.env
+# Host target specific environment variables
+!host/*/*/target.env
 
-# Image target readme markdown
-!img/*/*/README.md
+# Host target readme markdown
+!host/*/*/README.md

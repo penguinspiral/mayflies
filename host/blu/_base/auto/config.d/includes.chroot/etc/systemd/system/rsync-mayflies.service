@@ -1,0 +1,18 @@
+[Unit]
+Description=Synchronise Mayflies images
+RequiresMountsFor=/mnt/archive /mnt/ventoy
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/mayflies/rsync.env
+# Mayflies "target" images prioritised over generic shared images
+ExecStart=/usr/bin/rsync $RSYNC_OPTS $RSYNC_EXCLUDE /mnt/archive/host/blu/ /mnt/ventoy/target/
+ExecStart=/usr/bin/rsync $RSYNC_OPTS /mnt/archive/_shared/ /mnt/ventoy/_shared/
+Restart=on-failure
+RestartSec=30s
+RestartSteps=10
+RestartMaxDelaySec=10min
+# rsync(1) "Partial transfer due to vanished source file" safely disregarded
+SuccessExitStatus=24
+Nice=19
+IOSchedulingClass=idle
