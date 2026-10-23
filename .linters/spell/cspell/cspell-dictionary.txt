@@ -26,6 +26,7 @@ Meigao
 Meigh
 memtest
 Minisforum
+mknod
 mkpasswd
 Mobo
 netbash
@@ -52,4 +53,5 @@ Thhmmss
 trixie
 varfile
 vars
+Ventoy
 zsync
