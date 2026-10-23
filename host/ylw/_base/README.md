@@ -37,8 +37,11 @@ This `_base` target has the following capabilities:
 * Statically setting DNS nameservers with performance & failover considerations
   * LAN based VyOS 'pdns_recursor(1)' fully recursive DNS nameserver: 10.0.0.1
   * WAN based Google public DNS nameserver: 8.8.8.8
-* OpenSSH server with centralised 'authorized_keys' management
-  * Supports the runtime `live-build(7)` generated user: 'debian'
+* OpenSSH server with SSH certificate based authentication
+  * Host authentication: ed25519 host public key signed by SSH "host" CA: 'grn'
+  * User authentication: trusts SSH "user" CA: 'grn' ('TrustedUserCAKeys')
+  * Private key TPM 2.0 encrypted via systemd-creds(1)
+  * Isolated to runtime `live-config(7)` generated user: 'debian'
 
 ### Storage configuration
 
