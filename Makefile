@@ -43,7 +43,6 @@ CRI_CWD_VOLUME  := $(BUILD_TARGET_DIR):/app/$(BUILD_TARGET):rw
 CRI_CONF_VOLUME := $(BUILD_TARGET_DIR)/auto:/app/$(BUILD_TARGET)/auto:ro
 CRI_GIT_VOLUME  := $(REPO_ROOT):/repo/:ro
 CRI_OPTS := --rm \
-            --privileged \
             --user root \
             --volume $(CRI_CWD_VOLUME) \
             --volume $(CRI_CONF_VOLUME) \
@@ -57,6 +56,9 @@ ifneq (,$(wildcard $(BUILD_HOSTNAME_ENV_FILE)))
 endif
 ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
     CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
+endif
+ifeq ($(MAKECMDGOALS),build)
+    CRI_OPTS += --cap-add SYS_ADMIN
 endif
 ifeq ($(MAKECMDGOALS),enter)
     CRI_OPTS += --interactive --tty
