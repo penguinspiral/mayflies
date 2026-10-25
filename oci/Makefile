@@ -33,7 +33,6 @@ endif
 ifeq ($(OCI_PUBLISH_BINARY),docker)
     OCI_PUBLISH_CMD    ?= push
     OCI_PUBLISH_OPTS   ?= docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
-    SUDO_OPTS          ?= --preserve-env=DOCKER_CONFIG
 endif
 
 OCI_BUILD_CMD  := build
@@ -57,7 +56,7 @@ publish-deps:         ## Dependencies for publishing the mayflies OCI image
 	@:$(call check_defined, DEBIAN_OCI_TAG, "Missing upstream Debian GNU/Linux OCI image tag")
 
 build: build-deps     ## Build the mayflies OCI image
-	sudo $(SUDO_OPTS) -- $(OCI_BUILD_BINARY) $(OCI_BUILD_CMD) $(OCI_BUILD_OPTS)
+	$(OCI_BUILD_BINARY) $(OCI_BUILD_CMD) $(OCI_BUILD_OPTS)
 
 publish: publish-deps ## Publish the mayflies OCI image
-	sudo $(SUDO_OPTS) -- $(OCI_PUBLISH_BINARY) $(OCI_PUBLISH_CMD) $(OCI_PUBLISH_OPTS)
+	$(OCI_PUBLISH_BINARY) $(OCI_PUBLISH_CMD) $(OCI_PUBLISH_OPTS)

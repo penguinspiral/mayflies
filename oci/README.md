@@ -27,10 +27,6 @@ GNU/Linux OCI base image.
 
 * The snapshot timestamp is formatted as: `yyyymmddThhmmssZ` OR `yyyymmdd`
 
-* All "wrapped" OCI utilities are ran via `sudo`. `buildah(1)` and `skopeo(1)`
-  will store/lookup OCI images from different paths depending on their execution
-  privilege.
-
 
 ### Publishing
 
