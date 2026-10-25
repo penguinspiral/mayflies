@@ -78,16 +78,16 @@ ifneq ($(MAKECMDGOALS),help)
 endif
 
 config:        ## Render build-time configurations
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 build: config  ## Build specified host target
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 clean:         ## Remove build artifacts for a target
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 distclean:     ## Remove build artifacts & cache for a target
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) clean --purge
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) clean --purge
 
 enter:         ## Enter an interactive session
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) /bin/bash
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) /bin/bash
