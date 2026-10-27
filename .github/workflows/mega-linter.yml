@@ -102,6 +102,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
           LINTER_RULES_PATH: ".linters/"
+          ACTION_ACTIONLINT_CONFIG_FILE: "action/actionlint/actionlint.yaml"
           SPELL_CSPELL_CONFIG_FILE: "spell/cspell/cspell.yaml"
           YAML_PRETTIER_DISABLE_ERRORS: false
           ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES: GITHUB_TOKEN

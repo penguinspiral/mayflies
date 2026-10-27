@@ -1,0 +1,5 @@
+# To-Do: Remove once https://github.com/rhysd/actionlint/pull/683 merged
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
+    - ubuntu-26.04-arm
