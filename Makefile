@@ -58,6 +58,11 @@ ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
     CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
 endif
 
+# Dynamic, CRI-dependent options
+ifeq ($(CRI_BINARY),docker)
+    build: private CRI_OPTS += --security-opt apparmor=unconfined
+endif
+
 # Makefile target-specific options ('private' prevents variable inheritance)
 build: private CRI_OPTS += --cap-add SYS_ADMIN
 enter: private CRI_OPTS += --cap-add SYS_ADMIN \
