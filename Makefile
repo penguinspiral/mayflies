@@ -57,12 +57,12 @@ endif
 ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
     CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
 endif
-ifeq ($(MAKECMDGOALS),build)
-    CRI_OPTS += --cap-add SYS_ADMIN
-endif
-ifeq ($(MAKECMDGOALS),enter)
-    CRI_OPTS += --interactive --tty
-endif
+
+# Makefile target-specific options ('private' prevents variable inheritance)
+build: private CRI_OPTS += --cap-add SYS_ADMIN
+enter: private CRI_OPTS += --cap-add SYS_ADMIN \
+                           --interactive \
+                           --tty
 
 LB_BINARY := /usr/bin/lb
 
