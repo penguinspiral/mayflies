@@ -43,7 +43,6 @@ CRI_CWD_VOLUME  := $(BUILD_TARGET_DIR):/app/$(BUILD_TARGET):rw
 CRI_CONF_VOLUME := $(BUILD_TARGET_DIR)/auto:/app/$(BUILD_TARGET)/auto:ro
 CRI_GIT_VOLUME  := $(REPO_ROOT):/repo/:ro
 CRI_OPTS := --rm \
-            --privileged \
             --user root \
             --volume $(CRI_CWD_VOLUME) \
             --volume $(CRI_CONF_VOLUME) \
@@ -58,9 +57,17 @@ endif
 ifneq (,$(wildcard $(BUILD_TARGET_ENV_FILE)))
     CRI_OPTS += --env-file $(BUILD_TARGET_ENV_FILE)
 endif
-ifeq ($(MAKECMDGOALS),enter)
-    CRI_OPTS += --interactive --tty
+
+# Dynamic, CRI-dependent options
+ifeq ($(CRI_BINARY),docker)
+    build: private CRI_OPTS += --security-opt apparmor=unconfined
 endif
+
+# Makefile target-specific options ('private' prevents variable inheritance)
+build: private CRI_OPTS += --cap-add SYS_ADMIN
+enter: private CRI_OPTS += --cap-add SYS_ADMIN \
+                           --interactive \
+                           --tty
 
 LB_BINARY := /usr/bin/lb
 
@@ -76,16 +83,16 @@ ifneq ($(MAKECMDGOALS),help)
 endif
 
 config:        ## Render build-time configurations
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 build: config  ## Build specified host target
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 clean:         ## Remove build artifacts for a target
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) $@
 
 distclean:     ## Remove build artifacts & cache for a target
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) clean --purge
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) $(LB_BINARY) clean --purge
 
 enter:         ## Enter an interactive session
-	sudo $(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) /bin/bash
+	$(CRI_BINARY) $(CRI_CMD) $(CRI_OPTS) $(OCI_URI) /bin/bash
