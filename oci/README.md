@@ -46,7 +46,7 @@ Build the `mayflies` "builder" OCI image atop upstream Debian GNU/Linux 13.0
 "Trixie" (stable) OCI image built on May 18th 2026:
 
 ```bash
-# builds: mayflies:trixie-20260518
+# builds: mayflies:trixie-20261027
 make build
 ```
 
@@ -79,10 +79,10 @@ make build DEBIAN_OCI_TAG=sid SNAPSHOT_TIMESTAMP=$(date +%Y%m%d) \
 <!-- markdownlint-disable MD024 -->
 ### Publishing
 
-Publish the `mayflies` "builder OCI image tagged "trixie-20260518" (default):
+Publish the `mayflies` "builder OCI image tagged "trixie-20261027" (default):
 
 ```bash
-# publishes: mayflies:trixie-20260518
+# publishes: mayflies:trixie-20261027
 make publish
 ```
 
