@@ -9,7 +9,10 @@ SNAPSHOT_TIMESTAMP ?= 20261027
 MAYFLIES_OCI_NAME := mayflies
 MAYFLIES_OCI_TAG  ?= $(DEBIAN_OCI_TAG)
 
-# Open Container Initiative (OCI) image *builder* binary autodetect
+# Supported Open Container Initiative (OCI) image builder & publisher binaries
+OCI_SUPPORTED_BINARIES := buildah docker
+
+# Open Container Initiative (OCI) binary autodetect
 ifneq (,$(shell command -v buildah 2>/dev/null))
     OCI_BUILD_BINARY ?= buildah
 endif
