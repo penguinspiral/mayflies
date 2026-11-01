@@ -6,8 +6,10 @@ DEBIAN_OCI_TAG     ?= trixie-20261027
 # Valid Formats: yyyymmddThhmmssZ, yyyymmdd
 SNAPSHOT_TIMESTAMP ?= 20261027
 
-MAYFLIES_OCI_NAME := mayflies
-MAYFLIES_OCI_TAG  ?= $(DEBIAN_OCI_TAG)
+MAYFLIES_OCI_NAME     := mayflies
+# Repository image tag immutability is enabled
+MAYFLIES_OCI_TAG      ?= $(DEBIAN_OCI_TAG)
+MAYFLIES_OCI_IMAGE    := docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
 
 # Supported Open Container Initiative (OCI) image builder & publisher binaries
 OCI_SUPPORTED_BINARIES := buildah docker
