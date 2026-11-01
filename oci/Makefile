@@ -14,10 +14,10 @@ OCI_SUPPORTED_BINARIES := buildah docker
 
 # Open Container Initiative (OCI) binary autodetect
 ifneq (,$(shell command -v buildah 2>/dev/null))
-    OCI_BUILD_BINARY ?= buildah
+    OCI_BINARY ?= buildah
 endif
 ifneq (,$(shell command -v docker 2>/dev/null))
-    OCI_BUILD_BINARY ?= docker
+    OCI_BINARY ?= docker
 endif
 
 # Open Container Initiative (OCI) image *publisher* binary autodetect

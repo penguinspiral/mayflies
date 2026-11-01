@@ -32,10 +32,10 @@ jobs:
           persist-credentials: false
 
       - name: Build Containerfile (buildah)
-        run: make build OCI_BUILD_BINARY=buildah
+        run: make build OCI_BINARY=buildah
 
       - name: Build Containerfile (docker)
-        run: make build OCI_BUILD_BINARY=docker
+        run: make build OCI_BINARY=docker
 
         # Automatically logout upon workflow completion via action's "Post job"
       - name: Log in to DockerHub (docker)
