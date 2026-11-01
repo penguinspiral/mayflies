@@ -51,13 +51,15 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: ${{ vars.DOCKER_REGISTRY }}
 
-      - name: Publish Containerfile (skopeo)
+      - name: Publish Containerfile (buildah)
         if: github.event.pull_request.merged == true
-        run: make publish OCI_PUBLISH_BINARY=skopeo
+        run: make push OCI_BINARY=buildah
 
-      - name: Publish Containerfile (docker)
-        if: github.event.pull_request.merged == true
-        env:
-          # docker/login-action stores credentials as unprivileged user: 'runner'
-          DOCKER_CONFIG: "/home/runner/.docker"
-        run: make publish OCI_PUBLISH_BINARY=docker
+      # Repository image immutable tag means only one OCI binary can push
+      # Capturing Docker implementation for posterity
+      # - name: Publish Containerfile (docker)
+      #   if: github.event.pull_request.merged == true
+      #   env:
+      #     # docker/login-action stores credentials as unprivileged user: 'runner'
+      #     DOCKER_CONFIG: "/home/runner/.docker"
+      #   run: make push OCI_BINARY=docker
