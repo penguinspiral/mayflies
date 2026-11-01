@@ -38,7 +38,7 @@ OCI_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
             --file Containerfile \
             .
 
-.PHONY: build-deps publish-deps build publish help
+.PHONY: build push help
 
 .DEFAULT_GOAL := help
 
