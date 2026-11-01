@@ -42,14 +42,7 @@ OCI_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
 
 .DEFAULT_GOAL := help
 
-build-deps:           ## Dependencies for building the mayflies OCI image
-	@:$(call check_defined, OCI_BUILD_BINARY, "Missing supported OCI image builder binaries 'buildah', 'docker'. Exiting.")
-	@:$(call check_defined, DEBIAN_OCI_TAG, "Missing upstream Debian GNU/Linux OCI image tag")
-	@:$(call check_defined, SNAPSHOT_TIMESTAMP, "Missing APT snapshot timestamp value")
 
-publish-deps:         ## Dependencies for publishing the mayflies OCI image
-	@:$(call check_defined, OCI_PUBLISH_BINARY, "Missing supported OCI image publisher binaries 'skopeo','docker'. Exiting.")
-	@:$(call check_defined, DEBIAN_OCI_TAG, "Missing upstream Debian GNU/Linux OCI image tag")
 
 build: build-deps     ## Build the mayflies OCI image
 	$(OCI_BUILD_BINARY) $(OCI_BUILD_CMD) $(OCI_BUILD_OPTS)
