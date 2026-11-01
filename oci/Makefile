@@ -20,6 +20,16 @@ ifneq (,$(shell command -v docker 2>/dev/null))
     OCI_BINARY ?= docker
 endif
 
+# Basic error checks: Variable definitions & supported OCI binary specified
+ifneq ($(MAKECMDGOALS),help)
+    $(foreach var,DEBIAN_OCI_TAG SNAPSHOT_TIMESTAMP MAYFLIES_OCI_TAG OCI_BINARY,\
+        $(call check_defined, $(var), "Error: $(var) explicitly unset! Exiting.")\
+    )
+    ifeq ($(filter $(OCI_BINARY),$(OCI_SUPPORTED_BINARIES)),)
+        $(error "Error: Supported open container initiative binaries 'buildah', 'docker' not chosen. Exiting.")
+    endif
+endif
+
 # Open Container Initiative (OCI) image *publisher* binary autodetect
 ifneq (,$(shell command -v skopeo 2>/dev/null))
     OCI_PUBLISH_BINARY ?= skopeo
