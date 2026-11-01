@@ -42,10 +42,9 @@ OCI_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
 
 .DEFAULT_GOAL := help
 
+build: ## Build the mayflies OCI image
+	$(OCI_BINARY) $@ $(OCI_OPTS)
 
-
-build: build-deps     ## Build the mayflies OCI image
-	$(OCI_BUILD_BINARY) $(OCI_BUILD_CMD) $(OCI_BUILD_OPTS)
 
 publish: publish-deps ## Publish the mayflies OCI image
 	$(OCI_PUBLISH_BINARY) $(OCI_PUBLISH_CMD) $(OCI_PUBLISH_OPTS)
