@@ -6,57 +6,45 @@ DEBIAN_OCI_TAG     ?= trixie-20261027
 # Valid Formats: yyyymmddThhmmssZ, yyyymmdd
 SNAPSHOT_TIMESTAMP ?= 20261027
 
-MAYFLIES_OCI_NAME := mayflies
-MAYFLIES_OCI_TAG  ?= $(DEBIAN_OCI_TAG)
+MAYFLIES_OCI_NAME     := mayflies
+# Repository image tag immutability is enabled
+MAYFLIES_OCI_TAG      ?= $(DEBIAN_OCI_TAG)
+MAYFLIES_OCI_REGISTRY ?= docker.io
+MAYFLIES_OCI_IMAGE    := $(MAYFLIES_OCI_REGISTRY)/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
 
-# Open Container Initiative (OCI) image *builder* binary autodetect
+# Supported Open Container Initiative (OCI) image builder & publisher binaries
+OCI_SUPPORTED_BINARIES := buildah docker
+
+# Open Container Initiative (OCI) binary autodetect
 ifneq (,$(shell command -v buildah 2>/dev/null))
-    OCI_BUILD_BINARY ?= buildah
+    OCI_BINARY ?= buildah
 endif
 ifneq (,$(shell command -v docker 2>/dev/null))
-    OCI_BUILD_BINARY ?= docker
+    OCI_BINARY ?= docker
 endif
 
-# Open Container Initiative (OCI) image *publisher* binary autodetect
-ifneq (,$(shell command -v skopeo 2>/dev/null))
-    OCI_PUBLISH_BINARY ?= skopeo
-endif
-ifeq ($(OCI_PUBLISH_BINARY),skopeo)
-    OCI_PUBLISH_CMD    ?= copy
-    OCI_PUBLISH_OPTS   ?= containers-storage:localhost/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG) \
-                          docker://docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
-endif
-
-ifneq (,$(shell command -v docker 2>/dev/null))
-    OCI_PUBLISH_BINARY ?= docker
-endif
-ifeq ($(OCI_PUBLISH_BINARY),docker)
-    OCI_PUBLISH_CMD    ?= push
-    OCI_PUBLISH_OPTS   ?= docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
+# Basic error checks: Variable definitions & supported OCI binary specified
+ifneq ($(MAKECMDGOALS),help)
+    $(foreach var,DEBIAN_OCI_TAG SNAPSHOT_TIMESTAMP MAYFLIES_OCI_TAG MAYFLIES_OCI_REGISTRY OCI_BINARY,\
+        $(call check_defined, $(var), Error: $(var) explicitly unset! Exiting)\
+    )
+    ifeq ($(filter $(OCI_BINARY),$(OCI_SUPPORTED_BINARIES)),)
+        $(error Error: Supported open container initiative binaries 'buildah', 'docker' not chosen. Exiting)
+    endif
 endif
 
-OCI_BUILD_CMD  := build
-OCI_BUILD_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
-                  --build-arg SNAPSHOT_TIMESTAMP=$(SNAPSHOT_TIMESTAMP) \
-                  --tag "penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)" \
-                  --file Containerfile \
-                  .
+OCI_OPTS := --build-arg DEBIAN_OCI_TAG=$(DEBIAN_OCI_TAG) \
+            --build-arg SNAPSHOT_TIMESTAMP=$(SNAPSHOT_TIMESTAMP) \
+            --tag "$(MAYFLIES_OCI_IMAGE)" \
+            --file Containerfile \
+            .
 
-.PHONY: build-deps publish-deps build publish help
+.PHONY: build push help
 
 .DEFAULT_GOAL := help
 
-build-deps:           ## Dependencies for building the mayflies OCI image
-	@:$(call check_defined, OCI_BUILD_BINARY, "Missing supported OCI image builder binaries 'buildah', 'docker'. Exiting.")
-	@:$(call check_defined, DEBIAN_OCI_TAG, "Missing upstream Debian GNU/Linux OCI image tag")
-	@:$(call check_defined, SNAPSHOT_TIMESTAMP, "Missing APT snapshot timestamp value")
+build: ## Build the mayflies OCI image
+	$(OCI_BINARY) $@ $(OCI_OPTS)
 
-publish-deps:         ## Dependencies for publishing the mayflies OCI image
-	@:$(call check_defined, OCI_PUBLISH_BINARY, "Missing supported OCI image publisher binaries 'skopeo','docker'. Exiting.")
-	@:$(call check_defined, DEBIAN_OCI_TAG, "Missing upstream Debian GNU/Linux OCI image tag")
-
-build: build-deps     ## Build the mayflies OCI image
-	$(OCI_BUILD_BINARY) $(OCI_BUILD_CMD) $(OCI_BUILD_OPTS)
-
-publish: publish-deps ## Publish the mayflies OCI image
-	$(OCI_PUBLISH_BINARY) $(OCI_PUBLISH_CMD) $(OCI_PUBLISH_OPTS)
+push:  ## Publish the mayflies OCI image
+	$(OCI_BINARY) $@ $(MAYFLIES_OCI_IMAGE)

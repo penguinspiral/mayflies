@@ -18,7 +18,10 @@ permissions: {}
 
 jobs:
   oci-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    env:
+      MAYFLIES_OCI_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
     defaults:
       run:
         working-directory: oci
@@ -32,10 +35,10 @@ jobs:
           persist-credentials: false
 
       - name: Build Containerfile (buildah)
-        run: make build OCI_BUILD_BINARY=buildah
+        run: make build OCI_BINARY=buildah
 
       - name: Build Containerfile (docker)
-        run: make build OCI_BUILD_BINARY=docker
+        run: make build OCI_BINARY=docker
 
         # Automatically logout upon workflow completion via action's "Post job"
       - name: Log in to DockerHub (docker)
@@ -43,23 +46,24 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ${{ vars.DOCKER_REGISTRY }}
 
-      - name: Log in to DockerHub (skopeo)
-        run: >
-          skopeo login --username ${{ secrets.DOCKER_USERNAME }} \
-                       --password ${{ secrets.DOCKER_PASSWORD }} \
-                       docker.io
+      - name: Log in to DockerHub (podman/buildah/skopeo)
+        uses: redhat-actions/podman-login@50c2d9a331bb67c8fdab99b86455fad05e2e3252 # v2.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ${{ vars.DOCKER_REGISTRY }}
 
-      - name: Publish Containerfile (skopeo)
+      - name: Publish Containerfile (buildah)
         if: github.event.pull_request.merged == true
-        run: make publish OCI_PUBLISH_BINARY=skopeo
+        run: make push OCI_BINARY=buildah
 
-      - name: Publish Containerfile (docker)
-        if: github.event.pull_request.merged == true
-        env:
-          # docker/login-action stores credentials as unprivileged user: 'runner'
-          DOCKER_CONFIG: "/home/runner/.docker"
-        run: make publish OCI_PUBLISH_BINARY=docker
-
-      - name: Log out from DockerHub (skopeo)
-        run: skopeo logout docker.io
+      # Repository image immutable tag means only one OCI binary can push
+      # Capturing Docker implementation for posterity
+      # - name: Publish Containerfile (docker)
+      #   if: github.event.pull_request.merged == true
+      #   env:
+      #     # docker/login-action stores credentials as unprivileged user: 'runner'
+      #     DOCKER_CONFIG: "/home/runner/.docker"
+      #   run: make push OCI_BINARY=docker
