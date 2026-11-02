@@ -26,10 +26,10 @@ endif
 # Basic error checks: Variable definitions & supported OCI binary specified
 ifneq ($(MAKECMDGOALS),help)
     $(foreach var,DEBIAN_OCI_TAG SNAPSHOT_TIMESTAMP MAYFLIES_OCI_TAG MAYFLIES_OCI_REGISTRY OCI_BINARY,\
-        $(call check_defined, $(var), "Error: $(var) explicitly unset! Exiting.")\
+        $(call check_defined, $(var), Error: $(var) explicitly unset! Exiting)\
     )
     ifeq ($(filter $(OCI_BINARY),$(OCI_SUPPORTED_BINARIES)),)
-        $(error "Error: Supported open container initiative binaries 'buildah', 'docker' not chosen. Exiting.")
+        $(error Error: Supported open container initiative binaries 'buildah', 'docker' not chosen. Exiting)
     endif
 endif
 
