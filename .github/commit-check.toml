@@ -4,3 +4,4 @@ require_signed_off_by = false
 
 [branch]
 # require_rebase_target not set (equivalent to merge-base: false)
+allow_branch_names = ["release-please--branches--main"]
