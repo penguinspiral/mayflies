@@ -13,6 +13,7 @@ on:
       - synchronize
       - ready_for_review
       - closed
+  workflow_dispatch:
 
 permissions: {}
 
@@ -34,26 +35,27 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Build Containerfile (buildah)
-        run: make build OCI_BINARY=buildah
+      - parallel:
+          - name: Build Containerfile (buildah)
+            run: make build OCI_BINARY=buildah
 
-      - name: Build Containerfile (docker)
-        run: make build OCI_BINARY=docker
+          - name: Build Containerfile (docker)
+            run: make build OCI_BINARY=docker
 
-        # Automatically logout upon workflow completion via action's "Post job"
-      - name: Log in to DockerHub (docker)
-        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: ${{ vars.DOCKER_REGISTRY }}
+            # Automatically logout upon workflow completion via action's "Post job"
+          - name: Log in to DockerHub (docker)
+            uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+            with:
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+              registry: ${{ vars.DOCKER_REGISTRY }}
 
-      - name: Log in to DockerHub (podman/buildah/skopeo)
-        uses: redhat-actions/podman-login@50c2d9a331bb67c8fdab99b86455fad05e2e3252 # v2.0
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: ${{ vars.DOCKER_REGISTRY }}
+          - name: Log in to DockerHub (podman/buildah/skopeo)
+            uses: redhat-actions/podman-login@50c2d9a331bb67c8fdab99b86455fad05e2e3252 # v2.0
+            with:
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+              registry: ${{ vars.DOCKER_REGISTRY }}
 
       - name: Publish Containerfile (buildah)
         if: github.event.pull_request.merged == true
