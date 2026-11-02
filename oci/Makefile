@@ -9,7 +9,8 @@ SNAPSHOT_TIMESTAMP ?= 20261027
 MAYFLIES_OCI_NAME     := mayflies
 # Repository image tag immutability is enabled
 MAYFLIES_OCI_TAG      ?= $(DEBIAN_OCI_TAG)
-MAYFLIES_OCI_IMAGE    := docker.io/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
+MAYFLIES_OCI_REGISTRY ?= docker.io
+MAYFLIES_OCI_IMAGE    := $(MAYFLIES_OCI_REGISTRY)/penguinspiral/$(MAYFLIES_OCI_NAME):$(MAYFLIES_OCI_TAG)
 
 # Supported Open Container Initiative (OCI) image builder & publisher binaries
 OCI_SUPPORTED_BINARIES := buildah docker
@@ -24,7 +25,7 @@ endif
 
 # Basic error checks: Variable definitions & supported OCI binary specified
 ifneq ($(MAKECMDGOALS),help)
-    $(foreach var,DEBIAN_OCI_TAG SNAPSHOT_TIMESTAMP MAYFLIES_OCI_TAG OCI_BINARY,\
+    $(foreach var,DEBIAN_OCI_TAG SNAPSHOT_TIMESTAMP MAYFLIES_OCI_TAG MAYFLIES_OCI_REGISTRY OCI_BINARY,\
         $(call check_defined, $(var), "Error: $(var) explicitly unset! Exiting.")\
     )
     ifeq ($(filter $(OCI_BINARY),$(OCI_SUPPORTED_BINARIES)),)

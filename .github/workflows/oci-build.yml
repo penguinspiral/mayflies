@@ -20,6 +20,8 @@ jobs:
   oci-build:
     runs-on: ubuntu-26.04
     timeout-minutes: 15
+    env:
+      MAYFLIES_OCI_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
     defaults:
       run:
         working-directory: oci
