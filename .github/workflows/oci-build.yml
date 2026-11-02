@@ -19,6 +19,7 @@ permissions: {}
 jobs:
   oci-build:
     runs-on: ubuntu-26.04
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: oci
