@@ -1,12 +1,13 @@
-# Mayflies drop-in bash(1) configuration
-# Sourced by .bashrc configuration
+# Repurposed to source drop-in bash(1) scripts
+# Mirroring RHEL derived distributions' configuration: #1726397 (bugzilla)
+# Sourced by the default Debian GNU/Linux '.bashrc' file
 
-# Prompt length
-PROMPT_DIRTRIM=3
-
-# Prompt colour
-_START_WHITE_EM='\[\e[1;37m\]'
-_START_YLW_EM='\[\e[1;33m\]'
-_END_COLOUR='\[\e[0m\]'
-
-PS1="${_START_WHITE_EM}\u${_END_COLOUR}@${_START_YLW_EM}\h${_END_COLOUR}:${_START_WHITE_EM}\w${_END_COLOUR}\$ "
+# User specific aliases and functions
+if [[ -d ~/.bashrc.d ]]; then
+    for rc in ~/.bashrc.d/*; do
+        if [[ -f "${rc}" ]]; then
+            . "${rc}"
+        fi
+    done
+fi
+unset rc
