@@ -6,8 +6,8 @@ REPO_ROOT := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 # Project specific build container, ref: oci/Containerfile
 OCI_REGISTRY := docker.io/penguinspiral
 OCI_IMG      := mayflies
-# trixie-20260803
-OCI_SHA256   := c5ff2d16559c55d2eb62ce2e7d3437bc72210120fa85b86fbfdee2794b999a8a
+# trixie-20261027
+OCI_SHA256   := d88a1c0f0df930ba589241a7b5437b072066a6408635928903f432f6e1c0c72b
 OCI_URI      := $(OCI_REGISTRY)/$(OCI_IMG)@sha256:$(OCI_SHA256)
 
 # Mandatory parameters
