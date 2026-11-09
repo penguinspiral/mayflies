@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Regenerates system CA cert symlinks & 'ca-certificates.crt' for Mayflies certs
+# Ref: man update-ca-certificates 8
+
+set -euo pipefail
+
+update-ca-certificates --verbose
