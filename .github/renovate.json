@@ -3,7 +3,9 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices"],
   "labels": ["dependencies", "renovate"],
-  "dependencyDashboard": true,
+  "dependencyDashboard": {
+    "enabled": true
+  },
   "branchPrefix": "chore/",
   "prConcurrentLimit": 5,
   "rebaseWhen": "conflicted",
