@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0](https://github.com/penguinspiral/mayflies/compare/v1.0.0...v1.1.0) (2026-11-14)
+
+
+### Features
+
+* Add Mayflies CA root x509 certificate ([c94db97](https://github.com/penguinspiral/mayflies/commit/c94db97e0793bb6da006d826b250729c24207826))
+* Add Mayflies root x509 certificate ([#136](https://github.com/penguinspiral/mayflies/issues/136)) ([dbef9bb](https://github.com/penguinspiral/mayflies/commit/dbef9bb4973ec6db0ffd18c4e37a92dea2a3d17c))
+* Implement bashrc.d drop-in configuration sourcing ([#132](https://github.com/penguinspiral/mayflies/issues/132)) ([897b30f](https://github.com/penguinspiral/mayflies/commit/897b30f206e7c3e1d5114f46de9d8abd99239627))
+* **lb_config:** Add CA certificates regeneration hook ([cd1bfb0](https://github.com/penguinspiral/mayflies/commit/cd1bfb0635299c56fd2cce6754e985e05a8c24eb))
+* **lb_config:** Implement bashrc.d drop-in sourcing ([98f9043](https://github.com/penguinspiral/mayflies/commit/98f9043653341775452c705a1f2c6e1cbc469148))
+
 ## 1.0.0 (2026-11-02)
 
 
